@@ -59,9 +59,13 @@
   }
   .nav .wrap{
     display:flex;
+    flex-wrap:wrap;
     align-items:center;
     justify-content:space-between;
-    height:56px;
+    row-gap:4px;
+    min-height:56px;
+    padding-top:8px;
+    padding-bottom:8px;
     font-family:var(--mono);
     font-size:0.82rem;
   }
@@ -198,9 +202,10 @@
   .session:hover{ border-left-color:var(--teal); background:var(--bg-raised); }
   .session-head{
     display:flex;
+    flex-wrap:wrap;
     align-items:baseline;
     justify-content:space-between;
-    gap:12px;
+    gap:8px 12px;
     font-family:var(--mono);
     font-size:0.74rem;
     color:var(--text-faint);
@@ -275,22 +280,6 @@
     font-style:italic;
   }
 
-
-  .add-session{
-    border:1px dashed var(--border-strong);
-    border-radius:6px;
-    padding:26px;
-    text-align:center;
-    font-family:var(--mono);
-    color:var(--text-faint);
-    font-size:0.86rem;
-  }
-  .add-session .plus{
-    display:block;
-    font-size:1.4rem;
-    color:var(--text-faint);
-    margin-bottom:6px;
-  }
 
   /* ---------- stack ---------- */
   .stackgrid{ padding:8px 0 64px; }
@@ -382,7 +371,7 @@
       <article class="session">
         <div class="session-head">
           <span>2026-05 → 2026-09</span>
-          <span class="tag">por publicar</span>
+          <span class="tag">publicado</span>
         </div>
         <p class="prompt">"Una joyería en Caracas necesita vender por WhatsApp sin pagarle a ninguna plataforma, con precios de oro y plata que se recalculen solos cada semana."</p>
         <h3>Joyería Estambul — catálogo con cotizador en vivo</h3>
@@ -401,7 +390,7 @@
       <article class="session">
         <div class="session-head">
           <span>2026-08 → 2026-09</span>
-          <span class="tag">uso interno</span>
+          <span class="tag">publicado · uso interno</span>
         </div>
         <p class="prompt">"En un banco, cada devolución individual de un programa de evaluación de desempeño se armaba a mano en Canva — con decenas de personas, era lento y ningún informe se veía igual."</p>
         <h3>Automatización de informes de desempeño</h3>
@@ -412,13 +401,13 @@
           <span>control de calidad automático</span>
         </div>
         <p class="stack-line">Claude (Cowork) · HTML/CSS/SVG · Python · Excel</p>
-        <span class="session-note">// proyecto confidencial de un cliente bancario — se queda privado, sin repositorio ni demo pública</span>
+        <span class="session-note">// ya publicado — uso interno del banco, sin repositorio público</span>
       </article>
 
       <article class="session">
         <div class="session-head">
           <span>2026-08</span>
-          <span class="tag">uso interno</span>
+          <span class="tag">publicado · uso interno</span>
         </div>
         <p class="prompt">"Un banco quería motivar a sus empleados a certificarse, innovar y cumplir metas — pero sin una plataforma real detrás, todo quedaba en Excel y correos sueltos."</p>
         <h3>Portal de gamificación de desempeño</h3>
@@ -429,13 +418,13 @@
           <span>ranking en vivo</span>
         </div>
         <p class="stack-line">Lovable · React · TanStack Router · Tailwind · Claude Code</p>
-        <span class="session-note">// proyecto interno del banco — sin repositorio ni demo pública</span>
+        <span class="session-note">// ya publicado — uso interno del banco, sin repositorio público</span>
       </article>
 
       <article class="session">
         <div class="session-head">
           <span>2026-05 → 2026-06</span>
-          <span class="tag">uso interno</span>
+          <span class="tag">publicado · uso interno</span>
         </div>
         <p class="prompt">"En un banco, coordinar quién usa cada sala de reuniones era un ir y venir de correos y llamadas — sin manera de ver de un vistazo qué estaba libre."</p>
         <h3>Sistema de reserva de salas</h3>
@@ -446,13 +435,9 @@
           <span>exportación CSV</span>
         </div>
         <p class="stack-line">Lovable · React · TanStack Router · Supabase</p>
-        <span class="session-note">// proyecto interno del banco — sin repositorio ni demo pública</span>
+        <span class="session-note">// ya publicado — uso interno del banco, sin repositorio público</span>
       </article>
 
-      <div class="add-session">
-        <span class="plus">+</span>
-        agrega aquí tu próxima sesión
-      </div>
     </div>
   </section>
 
@@ -478,6 +463,7 @@
     <p class="path-label">contacto</p>
     <div class="contact-list">
       <div><span class="k">email</span><a href="mailto:victorjarrin0205@gmail.com">victorjarrin0205@gmail.com</a></div>
+      <div><span class="k">teléfono</span><a href="tel:+584142464755">+58 414 246 4755</a></div>
       <div><span class="k">linkedin</span><a href="https://linkedin.com/in/victor-rojas-226445411" target="_blank" rel="noopener">linkedin.com/in/victor-rojas-226445411</a></div>
     </div>
     <p class="foot-note">construido conversando con Claude — esta misma página es una sesión más.</p>
