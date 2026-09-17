@@ -68,17 +68,19 @@
     border-bottom:1px solid var(--card-border);
   }
   .nav .wrap{
-    display:flex; align-items:center; justify-content:space-between;
-    height:64px; flex-wrap:wrap; row-gap:6px;
+    display:flex; flex-direction:column; gap:8px;
+    padding-top:14px; padding-bottom:10px;
   }
-  .nav ul{ list-style:none; display:flex; gap:28px; margin:0; padding:0; }
+  .nav-links-row{ display:flex; justify-content:center; }
+  .nav ul{ list-style:none; display:flex; gap:32px; margin:0; padding:0; flex-wrap:wrap; justify-content:center; }
   .nav a.navlink{
-    font-family:var(--sans); font-size:0.92rem; font-weight:500;
-    text-decoration:none; color:var(--text-dim);
+    font-family:var(--sans); font-size:1rem; font-weight:600;
+    text-decoration:none; color:var(--text);
     border-bottom:2px solid transparent; padding-bottom:2px;
     transition:color .15s ease, border-color .15s ease;
   }
   .nav a.navlink:hover{ color:var(--accent); border-color:var(--accent); }
+  .nav-toggle-row{ display:flex; justify-content:flex-end; }
 
   .theme-toggle{
     display:inline-flex; align-items:center; gap:8px;
@@ -220,16 +222,20 @@
 <body>
 <nav class="nav">
   <div class="wrap">
-    <ul>
-      <li><a class="navlink" href="#proyectos">Proyectos</a></li>
-      <li><a class="navlink" href="#herramientas">Herramientas</a></li>
-      <li><a class="navlink" href="#contacto">Contacto</a></li>
-    </ul>
-    <button class="theme-toggle" id="themeToggle" type="button" role="switch" aria-checked="false" aria-label="Cambiar a modo oscuro">
-      <span class="icon">☀️</span>
-      <span class="track"><span class="thumb"></span></span>
-      <span class="icon">🌙</span>
-    </button>
+    <div class="nav-links-row">
+      <ul>
+        <li><a class="navlink" href="#proyectos">Proyectos</a></li>
+        <li><a class="navlink" href="#herramientas">Herramientas</a></li>
+        <li><a class="navlink" href="#contacto">Contacto</a></li>
+      </ul>
+    </div>
+    <div class="nav-toggle-row">
+      <button class="theme-toggle" id="themeToggle" type="button" role="switch" aria-checked="false" aria-label="Cambiar a modo oscuro">
+        <span class="icon">☀️</span>
+        <span class="track"><span class="thumb"></span></span>
+        <span class="icon">🌙</span>
+      </button>
+    </div>
   </div>
 </nav>
 
