@@ -9,20 +9,39 @@
   @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Literata:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap');
 
   :root{
-    --bg:#14161c;
-    --bg-raised:#1b1e27;
-    --bg-inset:#0f1117;
-    --border:#2b2f3b;
-    --border-strong:#3d4252;
-    --text:#edeae2;
-    --text-dim:#a9acb8;
-    --text-faint:#666a7a;
-    --teal:#4fc3bb;
-    --teal-dim:rgba(79,195,187,0.14);
-    --gold:#d0964a;
-    --gold-dim:rgba(208,150,74,0.14);
+    --bg:#f7f6f2;
+    --bg-raised:#ffffff;
+    --bg-inset:#edece4;
+    --border:#dcd9cd;
+    --border-strong:#c3bfaf;
+    --text:#1c1e1a;
+    --text-dim:#52564c;
+    --text-faint:#83867a;
+    --teal:#127b73;
+    --teal-dim:rgba(18,123,115,0.12);
+    --gold:#8a5a1e;
+    --gold-dim:rgba(138,90,30,0.12);
+    --nav-bg:rgba(247,246,242,0.86);
     --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     --serif: 'Literata', Georgia, 'Times New Roman', serif;
+  }
+
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#14161c;
+      --bg-raised:#1b1e27;
+      --bg-inset:#0f1117;
+      --border:#2b2f3b;
+      --border-strong:#3d4252;
+      --text:#edeae2;
+      --text-dim:#a9acb8;
+      --text-faint:#666a7a;
+      --teal:#4fc3bb;
+      --teal-dim:rgba(79,195,187,0.14);
+      --gold:#d0964a;
+      --gold-dim:rgba(208,150,74,0.14);
+      --nav-bg:rgba(20,22,28,0.86);
+    }
   }
 
   *{box-sizing:border-box;}
@@ -53,7 +72,7 @@
     position:sticky;
     top:0;
     z-index:20;
-    background:rgba(20,22,28,0.86);
+    background:var(--nav-bg);
     backdrop-filter:blur(8px);
     border-bottom:1px solid var(--border);
   }
@@ -185,9 +204,17 @@
     background:var(--teal);
     border-color:var(--teal);
     color:#0c1512;
-    font-weight:600;
+    font-weight:700;
+    font-size:1rem;
+    padding:14px 24px;
+    box-shadow:0 6px 20px -6px var(--teal-dim), 0 0 0 1px var(--teal-dim);
+    transition:border-color .15s ease, background .15s ease, transform .15s ease, box-shadow .15s ease;
   }
-  .cta-row a.primary:hover{ background:#63d1c9; }
+  .cta-row a.primary:hover{
+    background:#63d1c9;
+    transform:translateY(-2px);
+    box-shadow:0 10px 26px -8px var(--teal-dim), 0 0 0 1px var(--teal-dim);
+  }
 
   /* ---------- sessions ---------- */
   .sessions{ padding:44px 0 64px; }
@@ -358,6 +385,7 @@
             <a href="#sesiones" class="primary">Ver proyectos ↓</a>
             <a href="mailto:victorjarrin0205@gmail.com">Email</a>
             <a href="https://linkedin.com/in/victor-rojas-226445411" target="_blank" rel="noopener">LinkedIn</a>
+            <a href="cv-victor-rojas.pdf" target="_blank" rel="noopener">CV</a>
           </div>
         </div>
       </div>
@@ -389,23 +417,6 @@
 
       <article class="session">
         <div class="session-head">
-          <span>2026-08 → 2026-09</span>
-          <span class="tag">publicado · uso interno</span>
-        </div>
-        <p class="prompt">"En un banco, cada devolución individual de un programa de evaluación de desempeño se armaba a mano en Canva — con decenas de personas, era lento y ningún informe se veía igual."</p>
-        <h3>Automatización de informes de desempeño</h3>
-        <p class="desc">Documenté el proceso completo y construí una plantilla en código (HTML + CSS + SVG exportado a PDF) que toma los datos de cada persona desde Excel y genera un informe de 6 páginas con diseño de marca consistente — más una pasada de auditoría automática antes de la entrega, para detectar errores de nombres, tildes y datos cruzados.</p>
-        <div class="chips">
-          <span>80+ informes generados</span>
-          <span>Excel → PDF</span>
-          <span>control de calidad automático</span>
-        </div>
-        <p class="stack-line">Claude (Cowork) · Copilot · HTML/CSS/SVG · Python · Excel</p>
-        <span class="session-note">// ya publicado — uso interno del banco, sin repositorio público</span>
-      </article>
-
-      <article class="session">
-        <div class="session-head">
           <span>2026-08</span>
           <span class="tag">publicado · uso interno</span>
         </div>
@@ -420,6 +431,23 @@
         <p class="stack-line">Lovable · React · TanStack Router · Tailwind · Claude Code · Copilot</p>
         <span class="session-note">// ya publicado — uso interno del banco, sin repositorio público</span>
         <p style="margin-top:10px"><a class="session-link" href="https://cinavibecoding.github.io/orbita-demo/" target="_blank" rel="noopener">Ver versión pública modificada →</a> <span class="session-note">(datos y marca ficticios, sin información sensible)</span></p>
+      </article>
+
+      <article class="session">
+        <div class="session-head">
+          <span>2026-08 → 2026-09</span>
+          <span class="tag">publicado · uso interno</span>
+        </div>
+        <p class="prompt">"En un banco, cada devolución individual de un programa de evaluación de desempeño se armaba a mano en Canva — con decenas de personas, era lento y ningún informe se veía igual."</p>
+        <h3>Automatización de informes de desempeño</h3>
+        <p class="desc">Documenté el proceso completo y construí una plantilla en código (HTML + CSS + SVG exportado a PDF) que toma los datos de cada persona desde Excel y genera un informe de 6 páginas con diseño de marca consistente — más una pasada de auditoría automática antes de la entrega, para detectar errores de nombres, tildes y datos cruzados.</p>
+        <div class="chips">
+          <span>80+ informes generados</span>
+          <span>Excel → PDF</span>
+          <span>control de calidad automático</span>
+        </div>
+        <p class="stack-line">Claude (Cowork) · Copilot · HTML/CSS/SVG · Python · Excel</p>
+        <span class="session-note">// ya publicado — uso interno del banco, sin repositorio público</span>
       </article>
 
       <article class="session">
