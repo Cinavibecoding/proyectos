@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Encuesta Tesis</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Encuesta Tesis">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#f6f3ee">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" href="icon-192.png">
+<style>
+:root{
+  --bg:#f6f3ee; --card:#fffdf9; --ink:#1f2a2e; --muted:#5f6b6e; --line:#e2ddd3;
+  --accent:#1f6f6a; --accent-ink:#ffffff; --accent-soft:#e3efed;
+  --warn:#9a4a12; --warn-soft:#fbeadc; --danger:#a12622; --danger-soft:#f9e0de; --ok:#2f6b2f; --ok-soft:#e3f0e1;
+  --r:18px;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:19px;line-height:1.45}
+body{min-height:100vh;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+.wrap{max-width:760px;margin:0 auto;padding:20px 18px 120px}
+h1{font-size:1.45rem;line-height:1.25;margin:.2em 0 .4em}
+h2{font-size:1.25rem;margin:.2em 0 .5em}
+.muted{color:var(--muted)}
+.small{font-size:.85rem}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px;margin:14px 0}
+.btn{display:block;width:100%;border:0;border-radius:14px;padding:18px 20px;font-size:1.05rem;font-weight:600;font-family:inherit;cursor:pointer;background:var(--accent);color:var(--accent-ink);margin:10px 0;text-align:center}
+.btn.secondary{background:var(--card);color:var(--ink);border:1.5px solid var(--line)}
+.btn.ghost{background:transparent;color:var(--accent);padding:12px;font-weight:600}
+.btn.danger{background:var(--danger-soft);color:var(--danger)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.row{display:flex;gap:10px}
+.row>*{flex:1}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 10px;text-align:center}
+.stat b{display:block;font-size:1.8rem;line-height:1.1;font-variant-numeric:tabular-nums}
+.stat span{font-size:.8rem;color:var(--muted)}
+.pill{display:inline-flex;align-items:center;gap:8px;font-size:.85rem;font-weight:600;padding:6px 12px;border-radius:99px}
+.pill.on{background:var(--ok-soft);color:var(--ok)} .pill.off{background:var(--warn-soft);color:var(--warn)}
+.pill i{width:9px;height:9px;border-radius:50%;background:currentColor;display:inline-block}
+label.f{display:block;font-size:.85rem;color:var(--muted);margin:10px 0 6px;font-weight:600}
+input[type=text],input[type=number],select{width:100%;font:inherit;font-size:1.1rem;padding:14px 16px;border-radius:12px;border:1.5px solid var(--line);background:#fff;color:var(--ink)}
+input:focus,select:focus{outline:3px solid var(--accent-soft);border-color:var(--accent)}
+/* Encuesta */
+.top{position:sticky;top:0;z-index:5;background:var(--bg);padding:12px 18px 10px;border-bottom:1px solid var(--line)}
+.top .in{max-width:760px;margin:0 auto;display:flex;align-items:center;gap:12px}
+.bar{flex:1;height:8px;background:var(--line);border-radius:99px;overflow:hidden}
+.bar>div{height:100%;background:var(--accent);border-radius:99px;transition:width .25s}
+.iconbtn{border:0;background:var(--card);border:1.5px solid var(--line);border-radius:12px;font:inherit;font-size:.9rem;font-weight:600;padding:10px 14px;color:var(--ink);cursor:pointer}
+.sec{font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-top:6px}
+.q{font-size:1.4rem;line-height:1.35;font-weight:600;margin:10px 0 18px}
+.qnum{color:var(--muted);font-weight:600;font-size:.95rem}
+.opt{display:flex;align-items:center;gap:14px;width:100%;text-align:left;font:inherit;font-size:1.12rem;padding:18px 18px;margin:10px 0;border-radius:14px;border:2px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;min-height:64px}
+.opt .dot{flex:0 0 26px;height:26px;border-radius:50%;border:2px solid #b9b2a5}
+.opt.sel{border-color:var(--accent);background:var(--accent-soft)}
+.opt.sel .dot{border:8px solid var(--accent)}
+.instr{background:var(--accent-soft);border-radius:var(--r);padding:20px;font-size:1.1rem}
+.alert{border-radius:var(--r);padding:18px;margin:14px 0}
+.alert.danger{background:var(--danger-soft);color:#5e1512;border:1.5px solid #e6b2ae}
+.alert.warn{background:var(--warn-soft);color:#5a2c0b}
+.alert.ok{background:var(--ok-soft);color:#1d421d}
+.list{font-size:.9rem}
+.list .it{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}
+.tag{font-size:.75rem;font-weight:700;padding:3px 9px;border-radius:99px}
+.tag.p{background:var(--warn-soft);color:var(--warn)} .tag.s{background:var(--ok-soft);color:var(--ok)}
+.modal{position:fixed;inset:0;background:rgba(20,25,27,.45);display:flex;align-items:center;justify-content:center;padding:18px;z-index:50}
+.modal .card{max-width:480px;width:100%}
+.center{text-align:center}
+.big{font-size:3.2rem;line-height:1}
+pre{white-space:pre-wrap;font-family:inherit;margin:0}
+.hidden{display:none!important}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div id="modal"></div>
+<script src="form-data.js"></script>
+<script>
+(function(){
+"use strict";
+var F = window.FORM;
+var KEY = "tesisCardio_v1_registros", DKEY = "tesisCardio_v1_borrador", RKEY = "tesisCardio_v1_rechazos", SKEY = "tesisCardio_v1_ajustes";
+var app = document.getElementById("app"), modal = document.getElementById("modal");
+
+/* ---------- almacenamiento seguro ---------- */
+function load(k, def){ try{ var v = localStorage.getItem(k); return v ? JSON.parse(v) : def; }catch(e){ return def; } }
+function save(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); return true; }catch(e){ showModal("<h2>No se pudo guardar</h2><p>El almacenamiento del dispositivo no respondió. Exporte un respaldo ahora.</p>", [["Entendido"]]); return false; } }
+try{ if(navigator.storage && navigator.storage.persist) navigator.storage.persist(); }catch(e){}
+
+function records(){ return load(KEY, []); }
+function settings(){ return load(SKEY, {recolector:"", lugar:"Hospital Domingo Luciani"}); }
+function esc(s){ return String(s==null?"":s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]; }); }
+function uid(){ return Date.now().toString(36) + Math.random().toString(36).slice(2,7); }
+function fmt(d){ var x=new Date(d); return x.toLocaleDateString("es-VE")+" "+x.toLocaleTimeString("es-VE",{hour:"2-digit",minute:"2-digit"}); }
+
+/* ---------- pasos de la encuesta ---------- */
+var STEPS = [];
+STEPS.push({kind:"intro"});
+STEPS.push({kind:"consent"});
+F.sections.forEach(function(sec, si){
+  if(sec.id !== "demo") STEPS.push({kind:"section", sec:sec});
+  if(sec.items){ sec.items.forEach(function(it, i){ STEPS.push({kind: it.type==="number" ? "number" : "choice", sec:sec, item:it, n:i+1, total:sec.items.length}); }); }
+  if(sec.rows){ sec.rows.forEach(function(r, i){ STEPS.push({kind:"choice", sec:sec, item:{entry:r[0], q:r[1], options:sec.scale}, n:i+1, total:sec.rows.length}); }); }
+});
+var QUESTION_STEPS = STEPS.filter(function(s){ return s.kind==="choice"||s.kind==="number"; }).length;
+
+var draft = null; // {id, start, step, answers:{entry:val}, other:""}
+
+/* ---------- utilidades UI ---------- */
+function showModal(html, buttons){
+  modal.innerHTML = '<div class="modal"><div class="card">'+html+'<div class="btns"></div></div></div>';
+  var box = modal.querySelector(".btns");
+  buttons.forEach(function(b){
+    var el = document.createElement("button"); el.className = "btn " + (b[2]||""); el.textContent = b[0];
+    el.onclick = function(){ modal.innerHTML=""; if(b[1]) b[1](); }; box.appendChild(el);
+  });
+}
+function online(){ return navigator.onLine; }
+window.addEventListener("online", function(){ if(!draft) home(); });
+window.addEventListener("offline", function(){ if(!draft) home(); });
+
+/* ---------- puntajes (solo para el respaldo local / alerta) ---------- */
+function idx(val, opts){ return opts.indexOf(val); }
+function bdiScore(v){ if(!v) return null; var m = v.match(/^(\d)/); return m ? +m[1] : null; }
+function computeScores(ans){
+  var bdi = F.sections[3].items.map(function(it){ return bdiScore(ans[it.entry]); });
+  var pss = F.sections[2].rows.map(function(r){ return idx(ans[r[0]], F.sections[2].scale); });
+  var as = F.sections[1].rows.map(function(r){ return idx(ans[r[0]], F.sections[1].scale); });
+  var rev = [4,5,6,7,9,10,13]; // ítems positivos del PSS-14 (se invierten)
+  var pssTot = pss.reduce(function(a,v,i){ return a + (rev.indexOf(i+1)>=0 ? 4-v : v); }, 0);
+  return { bdi:bdi, pss:pss, as:as, bdiTotal: bdi.reduce(function(a,b){return a+(b||0);},0), pssTotal:pssTot, item9: bdi[8] };
+}
+function bdiLevel(t){ return t<=9?"mínima":t<=16?"leve":t<=29?"moderada":"grave"; }
+
+/* ---------- pantalla principal ---------- */
+function home(){
+  draft = load(DKEY, null);
+  var recs = records(), pend = recs.filter(function(r){return r.estado==="pendiente";}).length, sent = recs.length - pend;
+  var st = settings(), rech = load(RKEY, 0);
+  app.innerHTML =
+  '<div class="wrap">'+
+   '<div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap">'+
+     '<div class="small muted" style="font-weight:600">Tesis · Rojas y Kasabji</div>'+
+     (online() ? '<span class="pill on"><i></i>Con internet</span>' : '<span class="pill off"><i></i>Sin señal · guardando en el dispositivo</span>')+
+   '</div>'+
+   '<h1>Depresión en pacientes cardíacos</h1>'+
+   '<div class="stats">'+
+     '<div class="stat"><b>'+recs.length+'</b><span>completadas</span></div>'+
+     '<div class="stat"><b style="color:var(--warn)">'+pend+'</b><span>por enviar</span></div>'+
+     '<div class="stat"><b style="color:var(--ok)">'+sent+'</b><span>enviadas al Form</span></div>'+
+   '</div>'+
+   (draft ? '<div class="alert warn"><b>Hay una encuesta a medias</b> (iniciada '+fmt(draft.start)+').<button class="btn" id="resume">Continuar esa encuesta</button><button class="btn ghost" id="discard">Descartarla</button></div>' : '')+
+   '<button class="btn" id="start" style="font-size:1.2rem;padding:22px">Nueva encuesta</button>'+
+   '<button class="btn secondary" id="sync" '+(pend && online() ? '' : 'disabled')+'>'+(pend ? 'Enviar '+pend+' pendiente'+(pend>1?'s':'')+' al Google Form' : 'No hay respuestas pendientes')+'</button>'+
+   (pend && !online() ? '<p class="small muted center">Cuando tengas internet, abre la app y toca “Enviar”.</p>' : '')+
+   '<div class="card">'+
+     '<label class="f">Quién aplica</label><input type="text" id="rec" placeholder="Ej. Victor" value="'+esc(st.recolector)+'">'+
+     '<label class="f">Lugar</label><input type="text" id="lug" value="'+esc(st.lugar)+'">'+
+     '<p class="small muted">Esto solo queda en el respaldo de este dispositivo; no se envía al Form. Rechazos registrados: '+rech+'.</p>'+
+   '</div>'+
+   '<div class="row"><button class="btn secondary" id="csv">Exportar respaldo (Excel/CSV)</button><button class="btn secondary" id="json">Respaldo completo (JSON)</button></div>'+
+   '<button class="btn ghost" id="list">Ver registros de este dispositivo</button>'+
+   '<button class="btn ghost" id="imp">Importar respaldo JSON</button><input type="file" id="impf" accept="application/json,.json" class="hidden">'+
+  '</div>';
+  var g = function(id){ return document.getElementById(id); };
+  g("rec").onchange = g("lug").onchange = function(){ save(SKEY, {recolector:g("rec").value.trim(), lugar:g("lug").value.trim()}); };
+  g("start").onclick = function(){
+    if(draft){ showModal("<h2>Hay una encuesta a medias</h2><p>Si empiezas una nueva, la que estaba a medias se descarta.</p>", [["Empezar nueva", function(){ newSurvey(); }], ["Cancelar", null, "secondary"]]); return; }
+    newSurvey();
+  };
+  if(g("resume")) g("resume").onclick = function(){ render(); };
+  if(g("discard")) g("discard").onclick = function(){ showModal("<h2>¿Descartar la encuesta a medias?</h2>", [["Sí, descartar", function(){ try{localStorage.removeItem(DKEY);}catch(e){} draft=null; home(); }, "danger"], ["No", null, "secondary"]]); };
+  g("sync").onclick = syncAll;
+  g("csv").onclick = exportCSV; g("json").onclick = exportJSON; g("list").onclick = listView;
+  g("imp").onclick = function(){ g("impf").click(); };
+  g("impf").onchange = importJSON;
+  window.scrollTo(0,0);
+}
+
+function newSurvey(){
+  var st = settings();
+  draft = { id: uid(), start: new Date().toISOString(), step: 0, answers: {}, other: "", recolector: st.recolector, lugar: st.lugar };
+  save(DKEY, draft); render();
+}
+
+/* ---------- render de un paso ---------- */
+function render(){
+  var s = STEPS[draft.step]; save(DKEY, draft);
+  var answered = STEPS.slice(0, draft.step).filter(function(x){ return x.kind==="choice"||x.kind==="number"; }).length;
+  var pct = Math.round(100*answered/QUESTION_STEPS);
+  var top = '<div class="top"><div class="in">'+
+      (draft.step>0 ? '<button class="iconbtn" id="back">‹ Atrás</button>' : '')+
+      '<div class="bar"><div style="width:'+pct+'%"></div></div>'+
+      '<button class="iconbtn" id="exit">Salir</button></div></div>';
+  var body = "";
+  if(s.kind==="intro"){
+    body = '<div class="sec">Encuesta</div><h1>'+esc(F.title)+'</h1><div class="card"><pre>'+esc(F.intro)+'</pre></div><button class="btn" id="next">Comenzar</button>';
+  } else if(s.kind==="consent"){
+    body = '<div class="sec">Consentimiento informado</div><div class="q" style="font-size:1.15rem;font-weight:500">'+esc(F.consent.text)+'</div>'+
+      opt(F.consent.yes, draft.answers[F.consent.entry]===F.consent.yes, "y")+opt(F.consent.no, draft.answers[F.consent.entry]===F.consent.no, "n");
+  } else if(s.kind==="section"){
+    body = '<div class="sec">Nueva sección</div><h1>'+esc(s.sec.title)+'</h1>'+(s.sec.instructions?'<div class="instr">'+esc(s.sec.instructions)+'</div>':'')+
+      (s.sec.scale ? '<p class="muted">Opciones de respuesta: '+s.sec.scale.map(esc).join(' · ')+'</p>' : '')+'<button class="btn" id="next">Continuar</button>';
+  } else if(s.kind==="number"){
+    var v = draft.answers[s.item.entry] || "";
+    body = '<div class="sec">'+esc(s.sec.title)+'</div><div class="q">'+esc(s.item.q)+'</div>'+
+      '<input type="number" inputmode="numeric" pattern="[0-9]*" id="num" value="'+esc(v)+'" placeholder="Años cumplidos" style="font-size:1.6rem;text-align:center">'+
+      '<p id="err" class="small" style="color:var(--danger);min-height:1.4em"></p><button class="btn" id="next">Continuar</button>';
+  } else {
+    var cur = draft.answers[s.item.entry];
+    body = '<div class="sec">'+esc(s.sec.title)+'</div><div class="qnum">'+s.n+' de '+s.total+'</div><div class="q">'+esc(s.item.q.replace(/^\d+\.\s*/,""))+'</div>';
+    s.item.options.forEach(function(o, i){ body += opt(o, cur===o, i); });
+    if(s.item.other){
+      var isO = cur==="__other_option__";
+      body += opt("Otro", isO, "other");
+      body += '<div id="otherbox" class="'+(isO?'':'hidden')+'"><input type="text" id="othertxt" placeholder="Escriba cuál" value="'+esc(draft.other)+'"><button class="btn" id="othernext">Continuar</button></div>';
+    }
+  }
+  app.innerHTML = top + '<div class="wrap">' + body + '</div>';
+  bind(s); window.scrollTo(0,0);
+}
+function opt(text, sel, key){ return '<button class="opt'+(sel?' sel':'')+'" data-k="'+key+'"><span class="dot"></span><span>'+esc(text)+'</span></button>'; }
+
+function go(n){ draft.step = n; render(); }
+function next(){ go(draft.step+1 < STEPS.length ? draft.step+1 : draft.step); }
+
+function bind(s){
+  var b = document.getElementById("back"); if(b) b.onclick = function(){ go(draft.step-1); };
+  document.getElementById("exit").onclick = function(){
+    showModal("<h2>¿Salir de la encuesta?</h2><p>Puedes guardarla a medias y continuarla después, o descartarla (por ejemplo, si el paciente decidió retirarse).</p>",
+      [["Guardar a medias y salir", function(){ save(DKEY, draft); draft=null; home(); }],
+       ["Descartar (el paciente se retiró)", function(){ try{localStorage.removeItem(DKEY);}catch(e){} draft=null; home(); }, "danger"],
+       ["Seguir con la encuesta", null, "secondary"]]);
+  };
+  var nx = document.getElementById("next");
+  if(s.kind==="intro"||s.kind==="section"){ nx.onclick = next; return; }
+  if(s.kind==="number"){
+    var inp = document.getElementById("num");
+    var go2 = function(){
+      var v = inp.value.trim(), n = +v;
+      if(!/^\d{1,3}$/.test(v) || n < s.item.min || n > s.item.max){ document.getElementById("err").textContent = "Escriba la edad en años (entre "+s.item.min+" y "+s.item.max+")."; return; }
+      draft.answers[s.item.entry] = String(n); next();
+    };
+    nx.onclick = go2; inp.onkeydown = function(e){ if(e.key==="Enter") go2(); };
+    return;
+  }
+  Array.prototype.forEach.call(document.querySelectorAll(".opt"), function(el){
+    el.onclick = function(){
+      Array.prototype.forEach.call(document.querySelectorAll(".opt"), function(o){ o.classList.remove("sel"); }); el.classList.add("sel");
+      var k = el.getAttribute("data-k");
+      if(s.kind==="consent"){
+        if(k==="n"){ showModal("<h2>¿Confirmar que no acepta?</h2><p>La encuesta terminará y no se guardará ninguna respuesta.</p>", [["Sí, no acepta participar", refuse, "danger"], ["Volver", function(){ render(); }, "secondary"]]); return; }
+        draft.answers[F.consent.entry] = F.consent.yes; setTimeout(next, 220); return;
+      }
+      if(k==="other"){ draft.answers[s.item.entry] = "__other_option__"; save(DKEY, draft);
+        document.getElementById("otherbox").classList.remove("hidden"); var t=document.getElementById("othertxt"); t.focus();
+        document.getElementById("othernext").onclick = function(){ if(!t.value.trim()){ t.focus(); return; } draft.other = t.value.trim(); next(); };
+        return; }
+      draft.answers[s.item.entry] = s.item.options[+k];
+      if(s.item.other) draft.other = "";
+      if(draft.step === STEPS.length-1){ setTimeout(finish, 220); } else { setTimeout(next, 220); }
+    };
+  });
+  var ot = document.getElementById("othernext");
+  if(ot) ot.onclick = function(){ var t=document.getElementById("othertxt"); if(!t.value.trim()){ t.focus(); return; } draft.other=t.value.trim(); next(); };
+}
+
+function refuse(){ save(RKEY, load(RKEY,0)+1); try{localStorage.removeItem(DKEY);}catch(e){} draft=null;
+  app.innerHTML = '<div class="wrap center" style="padding-top:18vh"><div class="big">🙏</div><h1>Gracias por su tiempo</h1><p class="muted">No se guardó ninguna respuesta.</p><button class="btn" id="h">Volver al inicio</button></div>';
+  document.getElementById("h").onclick = home; }
+
+/* ---------- finalizar ---------- */
+function finish(){
+  // verificar que todo esté respondido
+  for(var i=0;i<STEPS.length;i++){ var s=STEPS[i]; if((s.kind==="choice"||s.kind==="number") && !draft.answers[s.item.entry]){ draft.step=i; render(); showModal("<h2>Falta una respuesta</h2><p>Esta pregunta quedó sin responder.</p>", [["Responder"]]); return; } }
+  if(draft.answers["979871757"]==="__other_option__" && !draft.other){ draft.step = STEPS.findIndex(function(s){return s.item && s.item.entry==="979871757";}); render(); return; }
+  var sc = computeScores(draft.answers);
+  var rec = { id: draft.id, inicio: draft.start, fin: new Date().toISOString(), recolector: draft.recolector, lugar: draft.lugar,
+              answers: draft.answers, other: draft.other, estado: "pendiente", enviado: null, intentos: 0,
+              bdiTotal: sc.bdiTotal, pssTotal: sc.pssTotal, item9: sc.item9 };
+  var recs = records(); recs.push(rec);
+  if(!save(KEY, recs)) return;
+  try{ localStorage.removeItem(DKEY); }catch(e){}
+  draft = null;
+  app.innerHTML = '<div class="wrap center" style="padding-top:16vh"><div class="big">💙</div><h1>¡Muchas gracias por participar!</h1><p class="muted">'+esc(F.thanks)+'</p><p class="muted">Por favor, devuelva el dispositivo a la persona encuestadora.</p><button class="btn secondary" id="inv" style="margin-top:40px">Encuestador: continuar ›</button></div>';
+  document.getElementById("inv").onclick = function(){ researcher(rec, recs.length); };
+}
+function researcher(rec, n){
+  var risk = rec.item9>=1;
+  app.innerHTML = '<div class="wrap"><div class="sec">Solo para el encuestador</div><h1>Encuesta n.º '+n+' guardada en este dispositivo</h1>'+
+    (risk ? '<div class="alert danger"><b>Atención: ítem 9 del BDI-II = '+rec.item9+'</b> ('+esc(F.sections[3].items[8].options[rec.item9])+').<br>Antes de que el paciente se retire, aplique el protocolo de riesgo acordado con su tutora y el servicio (notificar al equipo tratante / psicología del hospital).</div>' : '')+
+    '<div class="card"><b>BDI-II total:</b> '+rec.bdiTotal+' ('+bdiLevel(rec.bdiTotal)+')<br><span class="small muted">Dato orientativo para el encuestador. No es un diagnóstico.</span></div>'+
+    '<div class="alert '+(online()?'ok':'warn')+'">'+(online()?'Hay internet: puedes enviarla ya desde el inicio.':'Sin señal: quedó guardada y se enviará cuando toques “Enviar” con internet.')+'</div>'+
+    '<button class="btn" id="h">Ir al inicio</button></div>';
+  document.getElementById("h").onclick = home;
+}
+
+/* ---------- envío al Google Form ---------- */
+function payload(r){
+  var p = new URLSearchParams();
+  Object.keys(r.answers).forEach(function(e){ p.append("entry."+e, r.answers[e]); });
+  if(r.answers["979871757"]==="__other_option__") p.append("entry.979871757.other_option_response", r.other||"");
+  p.append("pageHistory", F.pageHistory); p.append("fvv","1");
+  return p;
+}
+function syncAll(){
+  if(!online()){ showModal("<h2>Sin internet</h2><p>Conéctate a una red y vuelve a intentarlo.</p>", [["OK"]]); return; }
+  var recs = records(), pend = recs.filter(function(r){ return r.estado==="pendiente"; });
+  if(!pend.length) return;
+  var i = 0, ok = 0, fail = 0;
+  modal.innerHTML = '<div class="modal"><div class="card center"><h2>Enviando…</h2><p id="prog">0 de '+pend.length+'</p><p class="small muted">No cierres la app.</p></div></div>';
+  function step(){
+    if(i>=pend.length){ modal.innerHTML=""; showModal("<h2>Listo</h2><p>Enviadas: "+ok+(fail?"<br>Fallaron: "+fail+" (siguen pendientes; reintenta luego)":"")+"</p><p class='small muted'>Revisa en Google Forms → Respuestas que el número subió igual.</p>", [["OK", home]]); return; }
+    var r = pend[i];
+    fetch(F.action, { method:"POST", mode:"no-cors", body: payload(r) })
+      .then(function(){ mark(r.id, true); ok++; })
+      .catch(function(){ mark(r.id, false); fail++; })
+      .then(function(){ i++; var pr=document.getElementById("prog"); if(pr) pr.textContent = i+" de "+pend.length; setTimeout(step, 600); });
+  }
+  step();
+}
+function mark(id, success){
+  var recs = records();
+  recs.forEach(function(r){ if(r.id===id){ r.intentos=(r.intentos||0)+1; if(success){ r.estado="enviada"; r.enviado=new Date().toISOString(); } } });
+  save(KEY, recs);
+}
+
+/* ---------- respaldos ---------- */
+function stamp(){ var d=new Date(); return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")+"_"+String(d.getHours()).padStart(2,"0")+String(d.getMinutes()).padStart(2,"0"); }
+function deliver(name, text, type){
+  var blob = new Blob([text], {type:type});
+  try{
+    var file = new File([blob], name, {type:type});
+    if(navigator.canShare && navigator.canShare({files:[file]})){ navigator.share({files:[file], title:name}).catch(function(){}); return; }
+  }catch(e){}
+  var a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = name; document.body.appendChild(a); a.click();
+  setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 1500);
+}
+function csvCell(v){ v = v==null ? "" : String(v); return /[",;\n]/.test(v) ? '"'+v.replace(/"/g,'""')+'"' : v; }
+function exportCSV(){
+  var recs = records(); if(!recs.length){ showModal("<h2>Aún no hay registros</h2>", [["OK"]]); return; }
+  var head = ["id","inicio","fin","recolector","lugar","estado","enviado","sexo","edad","tiempo_diagnostico","situacion_laboral"];
+  for(var i=1;i<=28;i++) head.push("AS"+i);
+  for(i=1;i<=14;i++) head.push("PSS"+i);
+  for(i=1;i<=21;i++) head.push("BDI"+i);
+  head.push("PSS_total","BDI_total");
+  var rows = [head.join(",")];
+  recs.forEach(function(r){
+    var a=r.answers, sc=computeScores(a);
+    var lab = a["979871757"]==="__other_option__" ? "Otro: "+(r.other||"") : a["979871757"];
+    var row = [r.id,r.inicio,r.fin,r.recolector,r.lugar,r.estado,r.enviado||"",a["1583913644"],a["2032496543"],a["1018884691"],lab].concat(sc.as, sc.pss, sc.bdi, [sc.pssTotal, sc.bdiTotal]);
+    rows.push(row.map(csvCell).join(","));
+  });
+  deliver("respaldo_encuestas_"+stamp()+".csv", "﻿"+rows.join("\n"), "text/csv");
+}
+function exportJSON(){ deliver("respaldo_encuestas_"+stamp()+".json", JSON.stringify({app:"tesisCardio_v1", exportado:new Date().toISOString(), registros:records(), rechazos:load(RKEY,0)}, null, 1), "application/json"); }
+function importJSON(ev){
+  var f = ev.target.files[0]; if(!f) return;
+  var rd = new FileReader();
+  rd.onload = function(){
+    try{
+      var data = JSON.parse(rd.result), inc = data.registros||[], recs = records(), ids = {}, add = 0;
+      recs.forEach(function(r){ ids[r.id]=1; });
+      inc.forEach(function(r){ if(r && r.id && r.answers && !ids[r.id]){ recs.push(r); add++; } });
+      save(KEY, recs); showModal("<h2>Importado</h2><p>"+add+" registro(s) nuevos añadidos (los repetidos se ignoraron).</p>", [["OK", home]]);
+    }catch(e){ showModal("<h2>Archivo no válido</h2>", [["OK"]]); }
+  };
+  rd.readAsText(f);
+}
+function listView(){
+  var recs = records().slice().reverse();
+  app.innerHTML = '<div class="wrap"><button class="iconbtn" id="h">‹ Inicio</button><h1>Registros en este dispositivo</h1>'+
+    (recs.length ? '<div class="card list">'+recs.map(function(r, k){ return '<div class="it"><span>#'+(recs.length-k)+' · '+fmt(r.fin)+' · '+esc(r.recolector||"—")+(r.item9>=1?' · <b style="color:var(--danger)">ítem 9 = '+r.item9+'</b>':'')+'</span><span class="tag '+(r.estado==="enviada"?'s':'p')+'">'+(r.estado==="enviada"?'enviada':'pendiente')+'</span></div>'; }).join("")+'</div>' : '<p class="muted">Todavía no hay encuestas.</p>')+
+    '<p class="small muted">Las encuestas enviadas se conservan aquí como respaldo. No se borran.</p></div>';
+  document.getElementById("h").onclick = home;
+}
+
+/* ---------- arranque ---------- */
+if("serviceWorker" in navigator){ window.addEventListener("load", function(){ navigator.serviceWorker.register("sw.js").catch(function(){}); }); }
+home();
+})();
+</script>
+</body>
+</html>
