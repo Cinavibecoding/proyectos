@@ -218,7 +218,6 @@ function bind(s){
       if(sel.indexOf("__other_option__")>=0){ if(!t || !t.value.trim()){ err.textContent = "Escriba cuál es la otra enfermedad."; if(t) t.focus(); return; } draft.other[e] = t.value.trim(); }
       else delete draft.other[e];
       draft.multi[e] = sel;
-      if(s.item.exclusive && sel.indexOf(s.item.exclusive)>=0){ ineligible("Sin diagnóstico médico confirmado"); return; }
       next();
     };
     return;
