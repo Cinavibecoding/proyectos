@@ -12,7 +12,18 @@ function save(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); return tru
 function del(k){ try{ localStorage.removeItem(k); }catch(e){} }
 try{ if(navigator.storage && navigator.storage.persist) navigator.storage.persist(); }catch(e){}
 
-function records(){ var r = load(KEY, []); return Array.isArray(r) ? r : []; }
+var readFailed = false;
+function records(){
+  var raw;
+  try{ raw = localStorage.getItem(KEY); }catch(e){ readFailed = true; return []; }
+  if(!raw) return [];
+  try{ var r = JSON.parse(raw); if(Array.isArray(r)) return r; }catch(e){}
+  readFailed = true; return [];
+}
+function saveRecords(recs){
+  if(readFailed){ showModal("<h2>No se pudo leer el almacenamiento</h2><p>Para no borrar nada, no se guardó este cambio. Cierre y vuelva a abrir la app.</p>", [["Entendido"]]); return false; }
+  return save(KEY, recs);
+}
 function settings(){ return load(SKEY, {recolector:"", lugar:"Hospital Domingo Luciani"}); }
 function esc(s){ return String(s==null?"":s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]; }); }
 function uid(){ return Date.now().toString(36) + Math.random().toString(36).slice(2,7); }
@@ -42,8 +53,9 @@ function showModal(html, buttons){
   });
 }
 function online(){ return navigator.onLine !== false; }
-window.addEventListener("online", function(){ if(!draft) home(); });
-window.addEventListener("offline", function(){ if(!draft) home(); });
+var onHome = false;
+window.addEventListener("online", function(){ if(onHome && !modal.innerHTML) home(); });
+window.addEventListener("offline", function(){ if(onHome && !modal.innerHTML) home(); });
 
 /* ---------- puntajes (respaldo local / alerta) ---------- */
 function idx(val, opts){ return opts.indexOf(val); }
@@ -60,6 +72,7 @@ function bdiLevel(t){ return t<=9?"mínima":t<=16?"leve":t<=29?"moderada":"grave
 
 /* ---------- inicio ---------- */
 function home(){
+  onHome = true;
   draft = load(DKEY, null);
   if(draft && (typeof draft.step!=="number" || !draft.answers)) { del(DKEY); draft=null; }
   var recs = records(), pend = recs.filter(function(r){return r.estado==="pendiente";}).length, sent = recs.length - pend;
@@ -113,6 +126,7 @@ function newSurvey(){
 
 /* ---------- render ---------- */
 function render(){
+  onHome = false;
   if(draft.step >= STEPS.length) draft.step = STEPS.length-1;
   var s = STEPS[draft.step]; save(DKEY, draft);
   lockUntil = Date.now() + 350;
@@ -250,6 +264,7 @@ function bindOther(s){
 }
 
 function endScreen(icon, title, sub){
+  onHome = false;
   app.innerHTML = '<div class="wrap center" style="padding-top:16vh"><div class="big">'+icon+'</div><h1>'+title+'</h1><p class="muted">'+sub+'</p><button class="btn" id="h">Volver al inicio</button></div>';
   document.getElementById("h").onclick = home;
 }
@@ -269,12 +284,14 @@ function finish(){
               answers: draft.answers, multi: draft.multi, other: draft.other, estado: "pendiente", enviado: null, intentos: 0,
               bdiTotal: sc.bdiTotal, pssTotal: sc.pssTotal, item9: sc.item9, v: 2 };
   var recs = records(); if(!recs.some(function(r){ return r.id===rec.id; })) recs.push(rec);
-  if(!save(KEY, recs)) return;
+  if(!saveRecords(recs)) return;
   del(DKEY); draft = null;
+  onHome = false;
   app.innerHTML = '<div class="wrap center" style="padding-top:16vh"><div class="big">💙</div><h1>¡Muchas gracias por participar!</h1><p class="muted">'+esc(F.thanks)+'</p><p class="muted">Por favor, devuelva el iPad a la persona encuestadora.</p><button class="btn secondary" id="inv" style="margin-top:40px">Encuestador: continuar ›</button></div>';
   document.getElementById("inv").onclick = function(){ researcher(rec, recs.length); };
 }
 function researcher(rec, n){
+  onHome = false;
   var risk = rec.item9>=1;
   app.innerHTML = '<div class="wrap"><div class="sec">Solo para el encuestador</div><h1>Encuesta n.º '+n+' guardada en este iPad</h1>'+
     (risk ? '<div class="alert danger"><b>Atención: ítem 9 del BDI-II = '+rec.item9+'</b> ('+esc(F.sections[3].items[8].options[rec.item9])+').<br>Antes de que el paciente se retire, aplique el protocolo de riesgo acordado con su tutora y el servicio (avisar al equipo tratante / psicología del hospital).</div>' : '')+
@@ -328,7 +345,7 @@ function syncAll(){
 function mark(id, success){
   var recs = records();
   recs.forEach(function(r){ if(r.id===id){ r.intentos=(r.intentos||0)+1; if(success){ r.estado="enviada"; r.enviado=new Date().toISOString(); } } });
-  save(KEY, recs);
+  saveRecords(recs);
 }
 
 /* ---------- respaldos ---------- */
@@ -348,13 +365,13 @@ function exportCSV(){
   var head = ["id","inicio","fin","recolector","lugar","estado","enviado","sexo","edad","diagnostico","tiempo_diagnostico","situacion_laboral","reside_AMC"];
   var i; for(i=1;i<=28;i++) head.push("AS"+i); for(i=1;i<=14;i++) head.push("PSS"+i); for(i=1;i<=21;i++) head.push("BDI"+i);
   head.push("PSS_total","BDI_total");
-  var rows = [head.join(",")];
+  var rows = ["sep=;", head.join(";")];
   recs.forEach(function(r){
     var a=r.answers||{}, m=r.multi||{}, o=r.other||{}, sc=computeScores(a);
     var lab = a[LAB]==="__other_option__" ? "Otro: "+(o[LAB]||r.other||"") : a[LAB];
     var dg = (m[DIAG]||[]).map(function(v){ return v==="__other_option__" ? "Otra: "+(o[DIAG]||"") : v; }).join(" | ");
     var row = [r.id,r.inicio,r.fin,r.recolector,r.lugar,r.estado,r.enviado||"",a["1583913644"],a["2032496543"],dg,a["1018884691"],lab,a["675845344"]].concat(sc.as, sc.pss, sc.bdi, [sc.pssTotal, sc.bdiTotal]);
-    rows.push(row.map(csvCell).join(","));
+    rows.push(row.map(csvCell).join(";"));
   });
   deliver("respaldo_encuestas_"+stamp()+".csv", "﻿"+rows.join("\n"), "text/csv");
 }
@@ -367,12 +384,13 @@ function importJSON(ev){
       var data = JSON.parse(rd.result), inc = data.registros||[], recs = records(), ids = {}, add = 0;
       recs.forEach(function(r){ ids[r.id]=1; });
       inc.forEach(function(r){ if(r && r.id && r.answers && !ids[r.id]){ recs.push(r); add++; } });
-      save(KEY, recs); showModal("<h2>Importado</h2><p>"+add+" registro(s) nuevos (los repetidos se ignoran).</p>", [["OK", home]]);
+      if(!saveRecords(recs)) return; showModal("<h2>Importado</h2><p>"+add+" registro(s) nuevos (los repetidos se ignoran).</p>", [["OK", home]]);
     }catch(e){ showModal("<h2>Archivo no válido</h2>", [["OK"]]); }
   };
   rd.readAsText(f);
 }
 function listView(){
+  onHome = false;
   var recs = records().slice().reverse();
   app.innerHTML = '<div class="wrap"><button class="iconbtn" id="h">‹ Inicio</button><h1>Registros en este iPad</h1>'+
     (recs.length ? '<div class="card list">'+recs.map(function(r, k){ return '<div class="it"><span>#'+(recs.length-k)+' · '+fmt(r.fin)+' · '+esc(r.recolector||"—")+(r.item9>=1?' · <b style="color:var(--danger)">ítem 9 = '+r.item9+'</b>':'')+'</span><span class="tag '+(r.estado==="enviada"?'s':'p')+'">'+(r.estado==="enviada"?'enviada':'pendiente')+'</span></div>'; }).join("")+'</div>' : '<p class="muted">Todavía no hay encuestas.</p>')+
