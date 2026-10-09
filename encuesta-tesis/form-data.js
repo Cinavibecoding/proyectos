@@ -2,7 +2,7 @@
 // porque Google rechaza respuestas cuyo texto no coincide exactamente.
 window.FORM = {
   action: "https://docs.google.com/forms/d/e/1FAIpQLSd-o-FnPxguZPNEHeMZ3EZNDPvFcmjYnLOmUpjAwf4SI0Y_Xg/formResponse",
-  pageHistory: "0,1,2,3",
+  pageHistory: "0,1,2,3,4,5",
   title: "Depresión en pacientes con enfermedades cardíacas: influencia del estrés percibido, apoyo social, sexo, edad y tiempo con el diagnóstico",
   intro: "¡Hola!\n\nSomos Victor Rojas y Hani Kasabji, estudiantes de la Universidad Metropolitana y estamos llevando a cabo una investigación para nuestro Trabajo de Grado en Psicología titulado \"Depresión en pacientes con enfermedades cardíacas: influencia del estrés percibido, apoyo social, sexo, edad y tiempo con el diagnóstico\", Tesis que esta siendo realizada bajo la tutoría de la Licenciada Guadalupe Pérez.\n\nEn el formulario encontrarás diversas preguntas que nos ayudarán a saber cómo se relacionan las variables que estamos evaluando, el tiempo de respuesta es aproximadamente 20 minutos.\n\n¡Agradecemos mucho su participación!",
   thanks: "Se ha registrado tu respuesta, Muchas gracias por haber participado.",
@@ -18,10 +18,14 @@ window.FORM = {
       items: [
         { key: "sexo", entry: "1583913644", q: "Sexo", type: "choice", options: ["Femenino", "Masculino"] },
         { key: "edad", entry: "2032496543", q: "Edad (En número)", type: "number", min: 18, max: 110 },
+        { key: "diag", entry: "678493997", q: "¿Qué enfermedad del corazón le diagnosticó su médico? (Puede marcar varias)", type: "multi", other: true,
+          options: ["Hipertensión arterial severa", "Cardiopatía isquémica", "Insuficiencia cardíaca", "Infarto al miocardio", "Valvulopatía", "No tengo un diagnóstico médico confirmado"],
+          exclusive: "No tengo un diagnóstico médico confirmado" },
         { key: "tiempo", entry: "1018884691", q: "Tiempo transcurrido con el diagnóstico de enfermedad cardíaca", type: "choice",
-          options: ["Menos de un año", "Entre uno y dos años", "Entre dos y cuatro años", "Más de cuatro años"] },
+          options: ["Menos de un mes", "Menos de un año", "Entre uno y dos años", "Entre dos y cuatro años", "Más de cuatro años"], exclude: ["Menos de un mes"] },
         { key: "laboral", entry: "979871757", q: "Condición / Situación laboral actual", type: "choice", other: true,
-          options: ["Empleado activo (tiempo completo o parcial)", "Trabajador independiente / Cuenta propia", "Desempleado", "Jubilado / Pensionado", "Labores del hogar / Ama de casa"] }
+          options: ["Empleado activo (tiempo completo o parcial)", "Trabajador independiente / Cuenta propia", "Desempleado", "Jubilado / Pensionado", "Labores del hogar / Ama de casa"] },
+        { key: "residencia", entry: "675845344", q: "¿Vive actualmente en el Área Metropolitana de Caracas?", type: "choice", options: ["Sí", "No"], exclude: ["No"] }
       ]
     },
     {
@@ -82,7 +86,7 @@ window.FORM = {
     },
     {
       id: "bdi", title: "Inventario de depresión de Beck (BDI-II)",
-      instructions: "Este cuestionario consta de 21 grupos de afirmaciones. Por favor, lea con atención cada uno de ellos cuidadosamente. Luego elija uno de cada grupo, el que mejor describa el modo como se ha sentido las últimas dos semanas, incluyendo el día de hoy. Si varios enunciados de un mismo grupo le parecen igualmente apropiados, elija el número más alto.",
+      instructions: "Este cuestionario consta de 21 grupos de afirmaciones. Por favor, lea con atención cada uno de ellos cuidadosamente. Luego elija uno de cada grupo, el que mejor describa el modo como se ha sentido las últimas dos semanas, incluyendo el día de hoy. Seleccione la opción correspondiente al enunciado elegido. Si varios enunciados de un mismo grupo le parecen igualmente apropiados, elija el número más alto. Verifique que no haya elegido más de uno por grupo, incluyendo el ítem 16 (cambios en los hábitos de Sueño) y el ítem 18 (cambios en el apetito).",
       items: [
         { entry: "755485676", q: "1. Tristeza", options: ["0 No me siento triste.", "1 Me siento triste gran parte del tiempo.", "2 Me siento triste todo el tiempo.", "3 Me siento tan triste o soy tan infeliz que no puedo soportarlo."] },
         { entry: "990956698", q: "2. Pesimismo", options: ["0 No estoy desalentado respecto del mi futuro.", "1 Me siento más desalentado respecto de mi futuro que lo que solía estarlo.", "2 No espero que las cosas funcionen para mi", "3 Siento que no hay esperanza para mi futuro y que sólo puede empeorar"] },
@@ -103,7 +107,7 @@ window.FORM = {
         { entry: "696411168", q: "17. Irritabilidad", options: ["0 No estoy tan irritable que lo habitual.", "1 Estoy más irritable que lo habitual.", "2 Estoy mucho más irritable que lo habitual.", "3 Estoy irritable todo el tiempo."] },
         { entry: "1472001533", q: "18. Cambios en el Apetito", options: ["0 No he experimentado ningún cambio en mi apetito.", "1a. Mi apetito es un poco menor que lo habitual.", "1b. Mi apetito es un poco mayor que lo habitual.", "2a. Mi apetito es mucho menor que antes.", "2b. Mi apetito es mucho mayor que lo habitual.", "3a . No tengo apetito en absoluto.", "3b. Quiero comer todo el día."] },
         { entry: "152108541", q: "19. Dificultad de Concentración", options: ["0 Puedo concentrarme tan bien como siempre.", "1 No puedo concentrarme tan bien como habitualmente", "2 Me es difícil mantener la mente en algo por mucho tiempo", "3 Encuentro que no puedo concentrarme en nada."] },
-        { entry: "1007100102", q: "20. Cansancio o Fatiga", options: ["0 No estoy más cansado o fatigado que lo habitual.", "1 Me fatigo o me canso más fácilmente que lo habitual.", "2 Estoy demasiado fatigado o cansado para hacer muchas de las cosas que solía hacer", "3 Estoy demasiado fatigado o cansado para hacer la mayoría de las cosas que solía"] },
+        { entry: "1007100102", q: "20. Cansancio o Fatiga", options: ["0 No estoy más cansado o fatigado que lo habitual.", "1 Me fatigo o me canso más fácilmente que lo habitual.", "2 Estoy demasiado fatigado o cansado para hacer muchas de las cosas que solía hacer", "3 Estoy demasiado fatigado o cansado para hacer la mayoría de las cosas que solía hacer"] },
         { entry: "1237165132", q: "21. Pérdida de Interés en el Sexo", options: ["0 No he notado ningún cambio reciente en mi interés por el sexo.", "1 Estoy menos interesado en el sexo de lo que solía estarlo.", "2 Estoy mucho menos interesado en el sexo.", "3 He perdido completamente el interés en el sexo."] }
       ]
     }
