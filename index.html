@@ -8,406 +8,320 @@
 <script>
   (function(){
     try{
-      var saved = localStorage.getItem('theme');
-      if(saved === 'dark') document.documentElement.setAttribute('data-theme','dark');
+      if(localStorage.getItem('theme') === 'dark') document.documentElement.setAttribute('data-theme','dark');
     }catch(e){}
   })();
 </script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700;1,800&family=Inter:wght@400;500;600&display=swap">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&display=swap');
-
   :root{
-    --bg:#fbf8f2;
-    --card:#ffffff;
-    --card-border:#e9e2d2;
-    --text:#242019;
-    --text-dim:#5c5748;
-    --text-faint:#8a8471;
-    --accent:#2d4a61;
-    --accent-deep:#1f3547;
-    --accent-soft:#e6edf1;
-    --tag-bg:#eef1e9;
-    --tag-text:#3f4a3a;
-    --serif:'Fraunces', Georgia, 'Times New Roman', serif;
-    --sans:'Work Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    --bg:#F7F8FA; --card:#FFFFFF; --line:#E3E6EC; --ink:#0B1220; --muted:#586174;
+    --accent:#0B7F78; --accent-ink:#FFFFFF; --accent-soft:#E3F3F1;
+    --dark:#0B1220; --dark-ink:#F4F6FA; --dark-muted:#C3CBD8;
+    --shadow:0 14px 34px -20px rgba(11,18,32,.30);
+    --head:'Archivo', system-ui, sans-serif;
+    --body:'Inter', system-ui, -apple-system, sans-serif;
+    color-scheme:light;
   }
-
   :root[data-theme="dark"]{
-    --bg:#1b1912;
-    --card:#252217;
-    --card-border:#3a3526;
-    --text:#f4efe3;
-    --text-dim:#c1baa5;
-    --text-faint:#8e8873;
-    --accent:#7fa3bd;
-    --accent-deep:#9dbdd2;
-    --accent-soft:rgba(127,163,189,0.16);
-    --tag-bg:rgba(160,180,150,0.14);
-    --tag-text:#c3d0b8;
+    --bg:#0A0F18; --card:#121A27; --line:#243145; --ink:#F1F4F9; --muted:#9AA6BA;
+    --accent:#35CDBF; --accent-ink:#06201E; --accent-soft:rgba(53,205,191,.14);
+    --dark:#1E2A3D; --dark-ink:#F1F4F9; --dark-muted:#C3CBD8;
+    --shadow:0 14px 34px -20px rgba(0,0,0,.7);
+    color-scheme:dark;
   }
 
   *{box-sizing:border-box;}
-  body{
-    margin:0;
-    background:var(--bg);
-    color:var(--text);
-    font-family:var(--sans);
-    -webkit-font-smoothing:antialiased;
-  }
-  ::selection{ background:var(--accent-soft); color:var(--text); }
-  a{ color:inherit; }
-  a:focus-visible, button:focus-visible{ outline:2px solid var(--accent); outline-offset:3px; border-radius:3px; }
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);-webkit-font-smoothing:antialiased;}
+  ::selection{background:var(--accent-soft);color:var(--ink);}
+  a:focus-visible, button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px;}
+  .wrap{max-width:1120px;margin:0 auto;padding-left:40px;padding-right:40px;}
+  section[id]{scroll-margin-top:84px;}
 
-  .wrap{ max-width:840px; margin:0 auto; padding:0 28px; }
-
-  /* ---------- nav ---------- */
-  .nav{
-    position:sticky; top:0; z-index:20;
-    background:color-mix(in srgb, var(--bg) 88%, transparent);
-    backdrop-filter:blur(8px);
-    border-bottom:1px solid var(--card-border);
-  }
-  .nav .wrap{
-    display:flex; flex-direction:column; gap:8px;
-    padding-top:14px; padding-bottom:10px;
-  }
-  .nav-links-row{ display:flex; justify-content:center; }
-  .nav ul{ list-style:none; display:flex; gap:32px; margin:0; padding:0; flex-wrap:wrap; justify-content:center; }
-  .nav a.navlink{
-    font-family:var(--sans); font-size:1rem; font-weight:600;
-    text-decoration:none; color:var(--text);
-    border-bottom:2px solid transparent; padding-bottom:2px;
-    transition:color .15s ease, border-color .15s ease;
-  }
-  .nav a.navlink:hover{ color:var(--accent); border-color:var(--accent); }
-  .nav-toggle-row{ display:flex; justify-content:flex-end; }
-
-  .theme-toggle{
-    display:inline-flex; align-items:center; gap:8px;
-    background:none; border:none; padding:0; cursor:pointer;
-    font-family:var(--sans);
-  }
-  .theme-toggle .icon{ font-size:0.95rem; line-height:1; }
-  .theme-toggle .track{
-    position:relative; width:42px; height:24px; border-radius:999px;
-    background:var(--card-border); transition:background .2s ease;
-    flex-shrink:0;
-  }
-  .theme-toggle .thumb{
-    position:absolute; top:3px; left:3px; width:18px; height:18px; border-radius:50%;
-    background:var(--card); box-shadow:0 1px 3px rgba(0,0,0,0.25);
-    transition:transform .2s ease;
-  }
-  :root[data-theme="dark"] .theme-toggle .track{ background:var(--accent); }
-  :root[data-theme="dark"] .theme-toggle .thumb{ transform:translateX(18px); }
+  /* ---------- nav: una sola barra ---------- */
+  .nav{position:sticky;top:0;z-index:30;background:color-mix(in srgb, var(--bg) 88%, transparent);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+  .nav-in{max-width:1120px;margin:0 auto;padding:0 40px;min-height:68px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;column-gap:16px;}
+  .brand{justify-self:start;font:800 19px var(--head);letter-spacing:-.025em;color:var(--ink);text-decoration:none;}
+  .brand::after{content:".";color:var(--accent);}
+  .nav-links{justify-self:center;display:flex;gap:34px;list-style:none;margin:0;padding:0;}
+  .nav-links a{display:inline-block;font:600 15px var(--head);color:var(--ink);text-decoration:none;padding:12px 0 8px;border-bottom:2px solid transparent;transition:color .15s ease,border-color .15s ease;}
+  .nav-links a:hover{color:var(--accent);border-color:var(--accent);}
+  .nav-tools{justify-self:end;display:flex;align-items:center;gap:10px;}
+  .lang{display:inline-flex;align-items:center;height:40px;padding:3px;border:1px solid var(--line);border-radius:999px;background:var(--card);}
+  .lang button{font:700 12px var(--head);letter-spacing:.08em;border:0;background:transparent;color:var(--muted);height:32px;min-width:42px;padding:0 12px;border-radius:999px;cursor:pointer;transition:background .15s ease,color .15s ease;}
+  .lang button:hover{color:var(--ink);}
+  .lang button[aria-pressed="true"]{background:var(--ink);color:var(--bg);}
+  .theme-btn{width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:50%;background:var(--card);color:var(--ink);cursor:pointer;padding:0;transition:border-color .15s ease,color .15s ease;}
+  .theme-btn:hover{border-color:var(--accent);color:var(--accent);}
+  .theme-btn svg{width:18px;height:18px;display:block;}
+  .theme-btn .i-sun{display:none;}
+  :root[data-theme="dark"] .theme-btn .i-sun{display:block;}
+  :root[data-theme="dark"] .theme-btn .i-moon{display:none;}
 
   /* ---------- hero ---------- */
-  .hero{ padding:72px 0 64px; }
-  .hero h1{
-    font-family:var(--serif); font-weight:700; font-size:clamp(2.2rem, 5vw, 3.1rem);
-    line-height:1.08; margin:0 0 10px; color:var(--text); text-wrap:balance;
-  }
-  .hero p.role{
-    font-family:var(--sans); font-weight:600; font-size:0.98rem; color:var(--accent);
-    margin:0 0 22px; letter-spacing:0.01em;
-  }
-  .hero p.lede{
-    font-size:1.1rem; line-height:1.75; color:var(--text-dim); max-width:62ch; margin:0 0 32px;
-  }
-  .cta-row{ display:flex; flex-wrap:wrap; gap:12px; }
-  .cta-row a{
-    font-family:var(--sans); font-weight:600; font-size:0.95rem;
-    text-decoration:none; padding:14px 26px; border-radius:10px;
-    border:1px solid var(--card-border); color:var(--text);
-    transition:border-color .15s ease, background .15s ease, transform .15s ease, box-shadow .15s ease;
-    background:var(--card);
-  }
-  .cta-row a:hover{ border-color:var(--accent); background:var(--accent-soft); }
-  .cta-row a.primary{
-    background:var(--accent); border-color:var(--accent); color:var(--bg);
-    box-shadow:0 10px 24px -10px color-mix(in srgb, var(--accent) 55%, transparent);
-  }
-  .cta-row a.primary:hover{
-    background:var(--accent-deep); border-color:var(--accent-deep);
-    transform:translateY(-2px);
-    box-shadow:0 14px 30px -10px color-mix(in srgb, var(--accent) 55%, transparent);
-  }
+  .hero{display:flex;flex-wrap:wrap;gap:56px;align-items:center;padding-top:84px;padding-bottom:76px;}
+  .hero-l{flex:1 1 520px;min-width:0;}
+  .hero-r{flex:1 1 360px;min-width:0;}
+  .eyebrow{font:700 12px var(--head);letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin:0 0 20px;}
+  h1{font:800 clamp(40px,5.4vw,66px)/1.03 var(--head);letter-spacing:-.035em;margin:0 0 22px;text-wrap:balance;}
+  h1 em, h2 em{font-style:italic;color:var(--accent);}
+  .lede{font-size:18px;line-height:1.65;color:var(--muted);max-width:56ch;margin:0 0 32px;}
+  .cta{display:flex;flex-wrap:wrap;gap:12px;}
+  .btn{font:600 15px var(--head);text-decoration:none;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:12px;padding:0 22px;min-height:48px;display:inline-flex;align-items:center;transition:border-color .15s ease;}
+  .btn:hover{border-color:var(--accent);}
+  .btn.pri{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);}
+  .idx{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);overflow:hidden;}
+  .idx-h{padding:16px 22px;border-bottom:1px solid var(--line);font:700 14px var(--head);}
+  .idx-row{padding:15px 22px;border-bottom:1px solid var(--line);}
+  .idx-row:last-child{border-bottom:0;}
+  .idx-k{display:block;font:700 11px var(--head);letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:4px;}
+  .idx-v{font-size:15px;color:var(--ink);}
 
-  /* ---------- section headings ---------- */
-  .section-head{ margin:0 0 34px; }
-  .eyebrow{
-    font-family:var(--sans); font-size:0.78rem; font-weight:700; letter-spacing:0.12em;
-    text-transform:uppercase; color:var(--accent); margin:0 0 8px;
-  }
-  .section-head h2{
-    font-family:var(--serif); font-weight:600; font-size:1.9rem; margin:0; color:var(--text);
-  }
+  /* ---------- proyectos ---------- */
+  .sec{padding-top:72px;padding-bottom:16px;}
+  .sec h2{font:800 clamp(30px,3.6vw,46px)/1.08 var(--head);letter-spacing:-.03em;margin:0 0 36px;text-wrap:balance;}
+  .grid{display:flex;flex-wrap:wrap;gap:20px;}
+  .card{flex:1 1 300px;min-width:0;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:12px;}
+  .card.wide{flex:2 1 560px;}
+  .card.hl{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);}
+  .card.dk{background:var(--dark);border-color:var(--dark);color:var(--dark-ink);}
+  .card.dash{background:transparent;border:1.5px dashed var(--line);box-shadow:none;}
+  .meta{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;font:600 12px var(--head);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);}
+  .pill{padding:5px 11px;border-radius:999px;background:var(--accent-soft);color:var(--accent);font-weight:700;letter-spacing:.05em;}
+  .card.hl .meta{color:var(--accent-ink);}
+  .card.hl .pill{background:rgba(255,255,255,.2);color:var(--accent-ink);}
+  .card.dk .meta{color:var(--dark-muted);}
+  .card.dk .pill{background:rgba(255,255,255,.12);color:var(--dark-ink);}
+  .card h3{font:800 24px/1.15 var(--head);letter-spacing:-.02em;margin:6px 0 0;}
+  .sub{font:600 14px var(--head);margin:0;color:var(--muted);}
+  .card.hl .sub{color:var(--accent-ink);}
+  .card.dk .sub{color:var(--dark-muted);}
+  .desc{font-size:15px;line-height:1.6;color:var(--muted);margin:0;}
+  .card.hl .desc{color:var(--accent-ink);}
+  .card.dk .desc{color:var(--dark-muted);}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:6px;}
+  .chips span{font:600 12px var(--head);padding:6px 12px;border-radius:999px;background:var(--bg);border:1px solid var(--line);color:var(--ink);}
+  .card.hl .chips span{background:rgba(255,255,255,.18);border-color:transparent;color:var(--accent-ink);}
+  .card.dk .chips span{background:rgba(255,255,255,.1);border-color:transparent;color:var(--dark-ink);}
+  .link{font:700 15px var(--head);color:var(--accent);text-decoration:none;display:inline-flex;align-items:center;min-height:44px;}
+  .link:hover{text-decoration:underline;text-underline-offset:4px;}
+  .card.hl .link{color:var(--accent-ink);text-decoration:underline;text-underline-offset:4px;}
+  .note{font-size:13px;line-height:1.5;color:var(--muted);margin:0;font-style:italic;}
 
-  /* ---------- projects ---------- */
-  .projects{ padding:12px 0 68px; border-top:1px solid var(--card-border); }
-  .project{
-    background:var(--card); border:1px solid var(--card-border); border-radius:20px;
-    padding:36px; margin-bottom:26px;
-    box-shadow:0 16px 36px -28px rgba(30,26,16,0.28);
-  }
-  .project-head{
-    display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between;
-    gap:8px 14px; margin-bottom:16px;
-  }
-  .project-date{ font-family:var(--sans); font-size:0.82rem; color:var(--text-faint); font-weight:500; }
-  .status{
-    font-family:var(--sans); font-size:0.74rem; font-weight:700; letter-spacing:0.04em;
-    text-transform:uppercase; padding:5px 12px; border-radius:999px;
-    background:var(--tag-bg); color:var(--tag-text);
-  }
-  .project blockquote{
-    font-family:var(--serif); font-style:italic; font-weight:500; font-size:1.08rem; line-height:1.6;
-    color:var(--text-dim); margin:0 0 18px; padding-left:18px;
-    border-left:3px solid var(--accent-soft);
-  }
-  .project h3{
-    font-family:var(--serif); font-weight:600; font-size:1.45rem; margin:0 0 12px; color:var(--text);
-  }
-  .project p.desc{ font-size:1rem; line-height:1.7; color:var(--text-dim); margin:0 0 20px; max-width:66ch; }
-  .chips{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:18px; }
-  .chips span{
-    font-family:var(--sans); font-size:0.8rem; font-weight:600; color:var(--tag-text);
-    background:var(--tag-bg); padding:6px 13px; border-radius:999px;
-  }
-  .stack-line{ font-size:0.86rem; color:var(--text-faint); margin:0 0 22px; }
-  .stack-line b{ color:var(--text-dim); font-weight:600; }
-  .project-note{ font-size:0.86rem; color:var(--text-faint); font-style:italic; margin:10px 0 0; }
+  /* ---------- herramientas ---------- */
+  .tools{display:flex;flex-wrap:wrap;gap:10px;}
+  .tools span{font:600 14px var(--head);padding:11px 18px;border-radius:12px;background:var(--card);border:1px solid var(--line);color:var(--ink);}
 
-  .btn-view{
-    display:inline-flex; align-items:center; gap:8px;
-    font-family:var(--sans); font-weight:700; font-size:0.98rem;
-    text-decoration:none; color:var(--bg); background:var(--accent);
-    padding:14px 26px; border-radius:10px;
-    transition:background .15s ease, transform .15s ease, box-shadow .15s ease;
-    box-shadow:0 10px 22px -10px color-mix(in srgb, var(--accent) 55%, transparent);
-  }
-  .btn-view:hover{ background:var(--accent-deep); transform:translateY(-1px); }
-  .btn-view.secondary{
-    color:var(--accent); background:var(--accent-soft); box-shadow:none;
-  }
-  .btn-view.secondary:hover{ background:var(--tag-bg); transform:none; }
+  /* ---------- contacto ---------- */
+  .foot{margin-top:72px;border-top:1px solid var(--line);padding-top:60px;padding-bottom:60px;}
+  .foot h2{font:800 clamp(30px,3.6vw,46px)/1.08 var(--head);letter-spacing:-.03em;margin:0 0 32px;text-wrap:balance;}
+  .contact{display:flex;flex-wrap:wrap;gap:28px 56px;margin:0 0 30px;}
+  .contact .k{display:block;font:700 11px var(--head);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+  .contact a{color:var(--accent);font-weight:600;text-decoration:none;font-size:16px;overflow-wrap:anywhere;}
+  .contact a:hover{text-decoration:underline;text-underline-offset:4px;}
+  .fn{font-size:13px;color:var(--muted);margin:0;}
 
-  /* ---------- tools ---------- */
-  .tools-sec{ padding:8px 0 68px; }
-  .tools{ display:flex; flex-wrap:wrap; gap:10px; }
-  .tools span{
-    font-family:var(--sans); font-size:0.92rem; font-weight:500; color:var(--text-dim);
-    background:var(--card); border:1px solid var(--card-border); padding:10px 18px; border-radius:10px;
-  }
-
-  /* ---------- footer ---------- */
-  .site-footer{ border-top:1px solid var(--card-border); padding:52px 0 44px; }
-  .contact-grid{ display:flex; flex-wrap:wrap; gap:28px 40px; margin-bottom:28px; }
-  .contact-grid div{ font-size:0.95rem; }
-  .contact-grid .k{
-    display:block; font-size:0.76rem; font-weight:700; letter-spacing:0.06em;
-    text-transform:uppercase; color:var(--text-faint); margin-bottom:6px;
-  }
-  .contact-grid a{ color:var(--accent); text-decoration:none; font-weight:600; }
-  .contact-grid a:hover{ text-decoration:underline; }
-  .foot-note{ font-size:0.86rem; color:var(--text-faint); }
-
-  @media (max-width:640px){
-    .wrap{ padding:0 20px; }
-    .project{ padding:26px; }
-    .nav ul{ gap:16px; }
+  /* ---------- móvil ---------- */
+  @media (max-width:760px){
+    .wrap{padding-left:20px;padding-right:20px;}
+    section[id]{scroll-margin-top:116px;}
+    .nav-in{grid-template-columns:1fr auto;padding:8px 20px 0;min-height:0;row-gap:0;}
+    .brand{grid-column:1;grid-row:1;}
+    .nav-tools{grid-column:2;grid-row:1;}
+    .nav-links{grid-column:1 / -1;grid-row:2;gap:26px;}
+    .nav-links a{padding:10px 0 8px;}
+    .lang, .theme-btn{height:44px;}
+    .theme-btn{width:44px;}
+    .lang button{height:36px;}
+    .hero{padding-top:44px;padding-bottom:48px;gap:36px;}
+    .sec{padding-top:52px;}
+    .card{padding:24px;}
+    .foot{margin-top:52px;padding-top:44px;padding-bottom:44px;}
   }
 </style>
-
 </head>
 <body>
-<nav class="nav">
-  <div class="wrap">
-    <div class="nav-links-row">
-      <ul>
-        <li><a class="navlink" href="#proyectos">Proyectos</a></li>
-        <li><a class="navlink" href="#herramientas">Herramientas</a></li>
-        <li><a class="navlink" href="#contacto">Contacto</a></li>
-      </ul>
-    </div>
-    <div class="nav-toggle-row">
-      <button class="theme-toggle" id="themeToggle" type="button" role="switch" aria-checked="false" aria-label="Cambiar a modo oscuro">
-        <span class="icon">☀️</span>
-        <span class="track"><span class="thumb"></span></span>
-        <span class="icon">🌙</span>
+<nav class="nav" aria-label="Principal">
+  <div class="nav-in">
+    <a class="brand" href="#inicio">Victor Rojas</a>
+    <ul class="nav-links">
+      <li><a href="#proyectos" data-en="Projects">Proyectos</a></li>
+      <li><a href="#herramientas" data-en="Tools">Herramientas</a></li>
+      <li><a href="#contacto" data-en="Contact">Contacto</a></li>
+    </ul>
+    <div class="nav-tools">
+      <div class="lang" role="group" aria-label="Idioma / Language">
+        <button type="button" data-lang="es" aria-pressed="true">ES</button>
+        <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+      <button type="button" class="theme-btn" id="themeToggle" aria-label="Activar modo oscuro" title="Activar modo oscuro">
+        <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
       </button>
     </div>
   </div>
 </nav>
 
 <main>
-  <section class="hero" id="inicio">
-    <div class="wrap">
-      <h1>Victor Rojas</h1>
-      <p class="role">Estudiante de psicología</p>
-      <p class="lede">Aquí abajo dejo algunas cosas que he hecho combinando programación con inteligencia artificial — trabajo con Claude, Copilot, Gemini, ChatGPT, DeepSeek y algún modelo local según lo que haga falta. La idea siempre es la misma: plantear el problema, iterar hasta armar algo real, y probarlo con datos verdaderos antes de darlo por terminado.</p>
-      <div class="cta-row">
-        <a href="#proyectos" class="primary">Ver proyectos</a>
-        <a href="mailto:victorjarrin0205@gmail.com">Email</a>
-        <a href="https://linkedin.com/in/victor-rojas-226445411" target="_blank" rel="noopener">LinkedIn</a>
-        <a href="cv-victor-rojas.pdf" target="_blank" rel="noopener">CV</a>
+  <section class="hero wrap" id="inicio">
+    <div class="hero-l">
+      <p class="eyebrow" data-en="Victor Rojas · Psychology student">Victor Rojas · Estudiante de psicología</p>
+      <h1><span data-en="What I've built">Lo que he construido</span> <em data-en="with artificial intelligence.">con inteligencia artificial.</em></h1>
+      <p class="lede" data-en="I study psychology and combine programming with AI to solve real problems: a store, a gamification portal, a booking system. I work with Claude, Copilot, Gemini, ChatGPT and DeepSeek.">Estudio psicología y combino programación con IA para resolver problemas reales: una tienda, un portal de gamificación, un sistema de reservas. Trabajo con Claude, Copilot, Gemini, ChatGPT y DeepSeek.</p>
+      <div class="cta">
+        <a class="btn pri" href="#proyectos" data-en="View projects">Ver proyectos</a>
+        <a class="btn" href="mailto:victorjarrin0205@gmail.com">Email</a>
+        <a class="btn" href="https://linkedin.com/in/victor-rojas-226445411" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn" href="cv-victor-rojas.pdf" target="_blank" rel="noopener">CV</a>
       </div>
+    </div>
+    <aside class="hero-r">
+      <div class="idx">
+        <div class="idx-h" data-en="# projects"># proyectos</div>
+        <div class="idx-row"><span class="idx-k" data-en="01 · Live">01 · Publicado</span><span class="idx-v">Joyería Estambul</span></div>
+        <div class="idx-row"><span class="idx-k" data-en="02 · Public demo">02 · Demo pública</span><span class="idx-v" data-en="Gamification portal">Portal de gamificación</span></div>
+        <div class="idx-row"><span class="idx-k" data-en="03 · Skill">03 · Habilidad</span><span class="idx-v" data-en="AI agents">Agentes de IA</span></div>
+      </div>
+    </aside>
+  </section>
+
+  <section class="sec wrap" id="proyectos">
+    <p class="eyebrow" data-en="Projects">Proyectos</p>
+    <h2><span data-en="Five projects,">Cinco proyectos,</span> <em data-en="each with its own purpose.">cada uno con su propósito.</em></h2>
+    <div class="grid">
+
+      <article class="card hl wide">
+        <div class="meta"><span data-en="May — Sep 2026">May — Sep 2026</span><span class="pill" data-en="Live">Publicado</span></div>
+        <h3>Joyería Estambul</h3>
+        <p class="sub" data-en="Catalog with a live price calculator">Catálogo con cotizador en vivo</p>
+        <p class="desc" data-en="150+ pieces with gold and silver prices that recalculate on their own, and a complete WhatsApp checkout. Custom Python pipeline to process the photos.">Más de 150 piezas con precio de oro y plata que se recalcula solo, y compra completa por WhatsApp. Pipeline propio en Python para procesar las fotos.</p>
+        <div class="chips"><span data-en="150+ pieces">150+ piezas</span><span>SEO + schema.org</span><span data-en="WhatsApp checkout">Checkout por WhatsApp</span></div>
+        <a class="link" href="https://joyeriaestambul.com" target="_blank" rel="noopener" data-en="View project →">Ver el proyecto →</a>
+      </article>
+
+      <article class="card">
+        <div class="meta"><span data-en="Aug 2026">Ago 2026</span><span class="pill" data-en="Public demo">Demo pública</span></div>
+        <h3 data-en="Performance gamification portal">Portal de gamificación de desempeño</h3>
+        <p class="sub" data-en="Performance turned into a game">El desempeño convertido en juego</p>
+        <p class="desc" data-en="Five performance dimensions turned into redeemable points, with team rankings and a rewards store.">Cinco dimensiones de desempeño convertidas en puntos canjeables, con ranking entre equipos y tienda de premios.</p>
+        <div class="chips"><span>React + TypeScript</span><span data-en="Live ranking">Ranking en vivo</span></div>
+        <a class="link" href="https://cinavibecoding.github.io/orbita-demo/" target="_blank" rel="noopener" data-en="View public version →">Ver versión pública →</a>
+        <p class="note" data-en="Fictional data and branding in the demo.">Datos y marca ficticios en la demo.</p>
+      </article>
+
+      <article class="card dk">
+        <div class="meta"><span>2026</span><span class="pill" data-en="Skill">Habilidad</span></div>
+        <h3 data-en="AI agent design and orchestration">Diseño y orquestación de agentes de IA</h3>
+        <p class="sub" data-en="Teams of agents working together">Equipos de agentes que trabajan en conjunto</p>
+        <p class="desc" data-en="Specialized agents, subagents and work trees where one agent coordinates others, with Copilot Studio and Claude Cowork.">Agentes especializados, subagentes y árboles de trabajo donde un agente coordina a otros, con Copilot Studio y Claude Cowork.</p>
+        <div class="chips"><span>Copilot Studio</span><span>Claude Cowork</span><span data-en="Multi-agent">Multi-agente</span></div>
+      </article>
+
+      <article class="card dash">
+        <div class="meta"><span data-en="Aug — Sep 2026">Ago — Sep 2026</span><span class="pill" data-en="Confidential">Confidencial</span></div>
+        <h3 data-en="Performance report automation">Automatización de informes de desempeño</h3>
+        <p class="sub" data-en="From Excel to PDF, with an automatic audit">De Excel a PDF, con auditoría automática</p>
+        <p class="desc" data-en="A 6-page report generated from each person's data, with a quality-control pass before delivery.">Informe de 6 páginas generado con los datos de cada persona, con una pasada de control de calidad antes de entregar.</p>
+        <div class="chips"><span data-en="Excel → PDF">Excel → PDF</span><span data-en="Quality control">Control de calidad</span></div>
+        <p class="note" data-en="Internal project — no repository or public demo.">Proyecto interno — sin repositorio ni demo pública.</p>
+      </article>
+
+      <article class="card">
+        <div class="meta"><span data-en="May — Jun 2026">May — Jun 2026</span><span class="pill" data-en="Public demo">Demo pública</span></div>
+        <h3 data-en="Meeting-room booking system">Sistema de reserva de salas</h3>
+        <p class="sub" data-en="From email back-and-forth to a calendar">Del ir y venir de correos a un calendario</p>
+        <p class="desc" data-en="Room requests, an admin approval panel, filterable history and CSV export.">Solicitud de salas, panel de aprobación para administradores, historial con filtros y exportación a CSV.</p>
+        <div class="chips"><span>Supabase</span><span data-en="Live calendar">Calendario en vivo</span></div>
+        <a class="link" href="https://cinavibecoding.github.io/reserva-de-salas/" target="_blank" rel="noopener" data-en="View public version →">Ver versión pública →</a>
+        <p class="note" data-en="Fictional data in the demo.">Datos ficticios en la demo.</p>
+      </article>
+
     </div>
   </section>
 
-  <section class="projects" id="proyectos">
-    <div class="wrap">
-      <div class="section-head" style="padding-top:34px">
-        <p class="eyebrow">Proyectos</p>
-        <h2>Algunos trabajos recientes</h2>
-      </div>
-
-      <article class="project">
-        <div class="project-head">
-          <span class="project-date">Mayo — Septiembre 2026</span>
-          <span class="status">Publicado</span>
-        </div>
-        <blockquote>"Una joyería en Caracas necesita vender por WhatsApp sin pagarle a ninguna plataforma, con precios de oro y plata que se recalculen solos cada semana."</blockquote>
-        <h3>Joyería Estambul — catálogo con cotizador en vivo</h3>
-        <p class="desc">Catálogo de más de 150 piezas con calculadora de precio en tiempo real (anillos por medida, cadenas por peso), flujo de compra completo por WhatsApp, un pipeline propio en Python para procesar y recortar fotos por tipo de pieza, SEO técnico con schema.org, y una auditoría de seguridad antes de publicar.</p>
-        <div class="chips">
-          <span>150+ piezas</span>
-          <span>precio en vivo (oro/plata)</span>
-          <span>SEO + schema.org</span>
-          <span>checkout por WhatsApp</span>
-        </div>
-        <p class="stack-line"><b>Stack:</b> Claude Code · HTML/CSS/JS · Python · Hostinger</p>
-        <a class="btn-view" href="https://joyeriaestambul.com" target="_blank" rel="noopener">Ver el proyecto →</a>
-      </article>
-
-      <article class="project">
-        <div class="project-head">
-          <span class="project-date">Agosto 2026</span>
-          <span class="status">Publicado · uso interno</span>
-        </div>
-        <blockquote>"Un banco quería motivar a sus empleados a certificarse, innovar y cumplir metas — pero sin una plataforma real detrás, todo quedaba en Excel y correos sueltos."</blockquote>
-        <h3>Portal de gamificación de desempeño</h3>
-        <p class="desc">Construí una app completa: cinco dimensiones de desempeño convertidas en puntos canjeables, un catálogo de acciones que suman puntos, una bitácora de aprobaciones, ranking entre equipos y una tienda de premios — para que el progreso se sienta como un juego, no como una evaluación más. Ya está en uso dentro del banco.</p>
-        <div class="chips">
-          <span>React 19 + TypeScript</span>
-          <span>puntos y recompensas</span>
-          <span>ranking en vivo</span>
-        </div>
-        <p class="stack-line"><b>Stack:</b> Copilot · Lovable · React · TanStack Router · Tailwind · Claude Code</p>
-        <a class="btn-view" href="https://cinavibecoding.github.io/orbita-demo/" target="_blank" rel="noopener">Ver versión pública →</a>
-        <p class="project-note">Datos y marca ficticios en la demo — sin información sensible del banco.</p>
-      </article>
-
-      <article class="project">
-        <div class="project-head">
-          <span class="project-date">2026</span>
-          <span class="status">Habilidad</span>
-        </div>
-        <blockquote>"Un chat general ya no alcanza cuando el problema tiene varios pasos, distintas fuentes de información y decisiones de naturaleza distinta — hay que dividirlo entre agentes especializados que trabajen en conjunto."</blockquote>
-        <h3>Diseño y orquestación de agentes de IA</h3>
-        <p class="desc">Además de programar con IA, diseño equipos de agentes: los entreno para tareas específicas, decido cuándo conviene un subagente dedicado en lugar de sobrecargar uno solo, y los conecto en árboles de trabajo donde un agente coordina a otros. En el banco construí dos agentes en Microsoft Copilot Studio para la VP de Desarrollo de Talento y Cultura (por confidencialidad no entro en el detalle de todos los que he hecho); en mis proyectos personales aplico el mismo enfoque con Claude Cowork para coordinar varios agentes dentro de una sola tarea compleja.</p>
-        <div class="chips">
-          <span>Microsoft Copilot Studio</span>
-          <span>orquestación multi-agente</span>
-          <span>árboles de trabajo</span>
-        </div>
-        <p class="stack-line"><b>Stack:</b> Claude Cowork · Microsoft Copilot Studio</p>
-        <p class="project-note">Capacidad transversal — aplicada en varios de los proyectos de esta página.</p>
-      </article>
-
-      <article class="project">
-        <div class="project-head">
-          <span class="project-date">Agosto — Septiembre 2026</span>
-          <span class="status">Publicado · uso interno</span>
-        </div>
-        <blockquote>"En un banco, cada devolución individual de un programa de evaluación de desempeño se armaba a mano en Canva — con decenas de personas, era lento y ningún informe se veía igual."</blockquote>
-        <h3>Automatización de informes de desempeño</h3>
-        <p class="desc">Documenté el proceso completo y construí una plantilla en código (HTML + CSS + SVG exportado a PDF) que toma los datos de cada persona desde Excel y genera un informe de 6 páginas con diseño de marca consistente — más una pasada de auditoría automática antes de la entrega, para detectar errores de nombres, tildes y datos cruzados.</p>
-        <div class="chips">
-          <span>varias decenas de informes generados</span>
-          <span>Excel → PDF</span>
-          <span>control de calidad automático</span>
-        </div>
-        <p class="stack-line"><b>Stack:</b> Copilot · Claude (Cowork) · HTML/CSS/SVG · Python · Excel</p>
-        <p class="project-note" style="margin-top:0">Proyecto interno y confidencial — sin repositorio ni demo pública.</p>
-      </article>
-
-      <article class="project">
-        <div class="project-head">
-          <span class="project-date">Mayo — Junio 2026</span>
-          <span class="status">Publicado · uso interno</span>
-        </div>
-        <blockquote>"En un banco, coordinar quién usa cada sala de reuniones era un ir y venir de correos y llamadas — sin manera de ver de un vistazo qué estaba libre."</blockquote>
-        <h3>Sistema de reserva de salas</h3>
-        <p class="desc">App completa con vista pública de reservas aprobadas, formulario de solicitud, panel de aprobación para administradores, historial con filtros y exportación a CSV, y validaciones para evitar choques de horario entre salas. Ya está en uso dentro del banco.</p>
-        <div class="chips">
-          <span>calendario en tiempo real</span>
-          <span>panel de aprobaciones</span>
-          <span>exportación CSV</span>
-        </div>
-        <p class="stack-line"><b>Stack:</b> Copilot · Lovable · React · TanStack Router · Supabase</p>
-        <a class="btn-view" href="https://cinavibecoding.github.io/reserva-de-salas/" target="_blank" rel="noopener">Ver versión pública →</a>
-        <p class="project-note">Datos ficticios en la demo — la base de datos real se desconectó a propósito.</p>
-      </article>
-    </div>
-  </section>
-
-  <section class="tools-sec" id="herramientas">
-    <div class="wrap">
-      <div class="section-head">
-        <p class="eyebrow">Herramientas</p>
-        <h2>Con qué construyo</h2>
-      </div>
-      <div class="tools">
-        <span>Claude Code</span>
-        <span>Claude Cowork</span>
-        <span>Copilot</span>
-        <span>Gemini</span>
-        <span>ChatGPT</span>
-        <span>DeepSeek</span>
-        <span>Lovable</span>
-        <span>React / TypeScript / Vite</span>
-        <span>Python</span>
-        <span>HTML / CSS / JS</span>
-        <span>GitHub Pages</span>
-        <span>Hostinger</span>
-      </div>
+  <section class="sec wrap" id="herramientas">
+    <p class="eyebrow" data-en="Tools">Herramientas</p>
+    <h2><span data-en="What I">Con qué</span> <em data-en="build with.">construyo.</em></h2>
+    <div class="tools">
+      <span>Claude Code</span>
+      <span>Claude Cowork</span>
+      <span>Copilot</span>
+      <span>Gemini</span>
+      <span>ChatGPT</span>
+      <span>DeepSeek</span>
+      <span>Lovable</span>
+      <span>React / TypeScript</span>
+      <span>Python</span>
+      <span>HTML / CSS / JS</span>
+      <span>GitHub Pages</span>
     </div>
   </section>
 </main>
 
-<footer class="site-footer" id="contacto">
-  <div class="wrap">
-    <div class="section-head">
-      <p class="eyebrow">Contacto</p>
-      <h2>Hablemos</h2>
-    </div>
-    <div class="contact-grid">
-      <div><span class="k">Email</span><a href="mailto:victorjarrin0205@gmail.com">victorjarrin0205@gmail.com</a></div>
-      <div><span class="k">Teléfono</span><a href="tel:+584142464755">+58 414 246 4755</a></div>
-      <div><span class="k">LinkedIn</span><a href="https://linkedin.com/in/victor-rojas-226445411" target="_blank" rel="noopener">linkedin.com/in/victor-rojas-226445411</a></div>
-    </div>
-    <p class="foot-note">Este sitio también está construido con IA.</p>
+<footer class="foot wrap" id="contacto">
+  <p class="eyebrow" data-en="Contact">Contacto</p>
+  <h2><span data-en="If you'd like to know more,">Si quieres saber más,</span> <em data-en="let's talk.">hablemos.</em></h2>
+  <div class="contact">
+    <div><span class="k">Email</span><a href="mailto:victorjarrin0205@gmail.com">victorjarrin0205@gmail.com</a></div>
+    <div><span class="k" data-en="Phone">Teléfono</span><a href="tel:+584142464755">+58 414 246 4755</a></div>
+    <div><span class="k">LinkedIn</span><a href="https://linkedin.com/in/victor-rojas-226445411" target="_blank" rel="noopener">linkedin.com/in/victor-rojas-226445411</a></div>
   </div>
+  <p class="fn" data-en="This site is also built with AI.">Este sitio también está construido con IA.</p>
 </footer>
 
 <script>
   (function(){
-    var btn = document.getElementById('themeToggle');
     var root = document.documentElement;
-    function isDark(){ return root.getAttribute('data-theme') === 'dark'; }
-    function sync(){ btn.setAttribute('aria-checked', String(isDark())); }
-    sync();
-    btn.addEventListener('click', function(){
-      if(isDark()){
+    var nodes = document.querySelectorAll('[data-en]');
+    for(var i = 0; i < nodes.length; i++){ nodes[i].setAttribute('data-es', nodes[i].textContent); }
+    var langBtns = document.querySelectorAll('.lang button');
+    var themeBtn = document.getElementById('themeToggle');
+    var nav = document.querySelector('.nav');
+    var lang = 'es';
+
+    function themeLabel(){
+      var dark = root.getAttribute('data-theme') === 'dark';
+      if(lang === 'en') return dark ? 'Switch to light mode' : 'Switch to dark mode';
+      return dark ? 'Activar modo claro' : 'Activar modo oscuro';
+    }
+    function paintTheme(){
+      var label = themeLabel();
+      themeBtn.setAttribute('aria-label', label);
+      themeBtn.setAttribute('title', label);
+    }
+    function setLang(next, save){
+      lang = next === 'en' ? 'en' : 'es';
+      root.setAttribute('lang', lang);
+      for(var i = 0; i < nodes.length; i++){
+        nodes[i].textContent = nodes[i].getAttribute(lang === 'en' ? 'data-en' : 'data-es');
+      }
+      for(var j = 0; j < langBtns.length; j++){
+        langBtns[j].setAttribute('aria-pressed', String(langBtns[j].getAttribute('data-lang') === lang));
+      }
+      nav.setAttribute('aria-label', lang === 'en' ? 'Main' : 'Principal');
+      paintTheme();
+      if(save){ try{ localStorage.setItem('lang', lang); }catch(e){} }
+    }
+    for(var k = 0; k < langBtns.length; k++){
+      langBtns[k].addEventListener('click', function(){ setLang(this.getAttribute('data-lang'), true); });
+    }
+    themeBtn.addEventListener('click', function(){
+      if(root.getAttribute('data-theme') === 'dark'){
         root.removeAttribute('data-theme');
         try{ localStorage.setItem('theme','light'); }catch(e){}
       } else {
         root.setAttribute('data-theme','dark');
         try{ localStorage.setItem('theme','dark'); }catch(e){}
       }
-      sync();
+      paintTheme();
     });
+
+    var saved = null;
+    try{ saved = localStorage.getItem('lang'); }catch(e){}
+    setLang(saved === 'en' ? 'en' : 'es', false);
   })();
 </script>
 </body>
