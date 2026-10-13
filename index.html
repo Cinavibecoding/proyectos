@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Victor Rojas</title>
-<meta name="description" content="Portafolio de proyectos construidos con IA — de la conversación al producto en producción.">
+<meta name="description" content="Victor Rojas · Psicología + IA. Siete proyectos reales: tienda en vivo, portal de gamificación, encuesta de tesis sin internet, buscador de empleos con IA y agentes.">
 <script>
   (function(){
     try{
@@ -84,8 +84,8 @@
   .sec{padding-top:72px;padding-bottom:16px;}
   .sec h2{font:800 clamp(30px,3.6vw,46px)/1.08 var(--head);letter-spacing:-.03em;margin:0 0 36px;text-wrap:balance;}
   .grid{display:flex;flex-wrap:wrap;gap:20px;}
-  .card{flex:1 1 300px;min-width:0;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:12px;}
-  .card.wide{flex:2 1 560px;}
+  .card{flex:1 1 440px;min-width:0;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:12px;}
+  .card.wide{flex:1 1 100%;}
   .card.hl{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);}
   .card.dk{background:var(--dark);border-color:var(--dark);color:var(--dark-ink);}
   .card.dash{background:transparent;border:1.5px dashed var(--line);box-shadow:none;}
@@ -96,9 +96,19 @@
   .card.dk .meta{color:var(--dark-muted);}
   .card.dk .pill{background:rgba(255,255,255,.12);color:var(--dark-ink);}
   .card h3{font:800 24px/1.15 var(--head);letter-spacing:-.02em;margin:6px 0 0;}
-  .sub{font:600 14px var(--head);margin:0;color:var(--muted);}
+  .sub{font:700 17px/1.35 var(--head);letter-spacing:-.01em;margin:0;color:var(--ink);}
   .card.hl .sub{color:var(--accent-ink);}
-  .card.dk .sub{color:var(--dark-muted);}
+  .card.dk .sub{color:var(--dark-ink);}
+  .story{margin:4px 0 0;display:grid;gap:14px;}
+  .story > div{display:grid;gap:4px;}
+  .story dt{font:700 11px var(--head);letter-spacing:.12em;text-transform:uppercase;color:var(--accent);}
+  .story dd{margin:0;font-size:14.5px;line-height:1.6;color:var(--muted);}
+  .card.wide .story{grid-template-columns:repeat(3,1fr);gap:28px;}
+  .card.hl .story dt{color:var(--accent-ink);opacity:.8;}
+  .card.hl .story dd{color:var(--accent-ink);}
+  .card.dk .story dt{color:var(--dark-ink);opacity:.65;}
+  .card.dk .story dd{color:var(--dark-muted);}
+  .sec-lede{font-size:17px;line-height:1.6;color:var(--muted);max-width:68ch;margin:-16px 0 32px;}
   .desc{font-size:15px;line-height:1.6;color:var(--muted);margin:0;}
   .card.hl .desc{color:var(--accent-ink);}
   .card.dk .desc{color:var(--dark-muted);}
@@ -139,6 +149,7 @@
     .hero{padding-top:44px;padding-bottom:48px;gap:36px;}
     .sec{padding-top:52px;}
     .card{padding:24px;}
+    .card.wide .story{grid-template-columns:1fr;gap:14px;}
     .foot{margin-top:52px;padding-top:44px;padding-bottom:44px;}
   }
 </style>
@@ -168,9 +179,9 @@
 <main>
   <section class="hero wrap" id="inicio">
     <div class="hero-l">
-      <p class="eyebrow" data-en="Victor Rojas · Psychology student">Victor Rojas · Estudiante de psicología</p>
-      <h1><span data-en="What I've built">Lo que he construido</span> <em data-en="with artificial intelligence.">con inteligencia artificial.</em></h1>
-      <p class="lede" data-en="I study psychology and combine programming with AI to solve real problems: a store, a gamification portal, a booking system. I work with Claude, Copilot, Gemini, ChatGPT and DeepSeek.">Estudio psicología y combino programación con IA para resolver problemas reales: una tienda, un portal de gamificación, un sistema de reservas. Trabajo con Claude, Copilot, Gemini, ChatGPT y DeepSeek.</p>
+      <p class="eyebrow" data-en="Psychology + AI for people and talent">Psicología + IA para personas y talento</p>
+      <h1><span data-en="I turn real problems">Convierto problemas reales</span> <em data-en="into AI-built products.">en productos con IA.</em></h1>
+      <p class="lede" data-en="I study psychology and build with AI what teams and organizations need: a store that sells on WhatsApp, a portal that turns performance into a game, a survey app that works without internet and a job-search engine that finds openings for new graduates. Today I'm a Career Support Coach Intern at 4Geeks Academy.">Estudio psicología y construyo con IA lo que necesitan los equipos y las organizaciones: una tienda que vende por WhatsApp, un portal que vuelve el desempeño un juego, una encuesta que funciona sin internet y un buscador que le consigue vacantes a recién graduados. Hoy soy Career Support Coach Intern en 4Geeks Academy.</p>
       <div class="cta">
         <a class="btn pri" href="#proyectos" data-en="View projects">Ver proyectos</a>
         <a class="btn" href="mailto:victorjarrin0205@gmail.com">Email</a>
@@ -183,59 +194,106 @@
         <div class="idx-h" data-en="# projects"># proyectos</div>
         <div class="idx-row"><span class="idx-k" data-en="01 · Live">01 · Publicado</span><span class="idx-v">Joyería Estambul</span></div>
         <div class="idx-row"><span class="idx-k" data-en="02 · Public demo">02 · Demo pública</span><span class="idx-v" data-en="Gamification portal">Portal de gamificación</span></div>
-        <div class="idx-row"><span class="idx-k" data-en="03 · Skill">03 · Habilidad</span><span class="idx-v" data-en="AI agents">Agentes de IA</span></div>
+        <div class="idx-row"><span class="idx-k" data-en="03 · In use">03 · En uso</span><span class="idx-v" data-en="Offline thesis survey">Encuesta de tesis sin internet</span></div>
       </div>
     </aside>
   </section>
 
   <section class="sec wrap" id="proyectos">
     <p class="eyebrow" data-en="Projects">Proyectos</p>
-    <h2><span data-en="Five projects,">Cinco proyectos,</span> <em data-en="each with its own purpose.">cada uno con su propósito.</em></h2>
+    <h2><span data-en="Seven projects,">Siete proyectos,</span> <em data-en="each one solves a real problem.">cada uno resuelve un problema real.</em></h2>
+    <p class="sec-lede" data-en="I built them with AI, and I say it plainly: I frame the problem, set the rules and verify the result; Claude, Copilot and Lovable speed up the code.">Los construí con IA, y lo digo sin rodeos: yo planteo el problema, defino las reglas y verifico el resultado; Claude, Copilot y Lovable aceleran el código.</p>
     <div class="grid">
 
       <article class="card hl wide">
-        <div class="meta"><span data-en="May — Sep 2026">May — Sep 2026</span><span class="pill" data-en="Live">Publicado</span></div>
+        <div class="meta"><span>May — Sep 2026</span><span class="pill" data-en="Live">Publicado</span></div>
         <h3>Joyería Estambul</h3>
-        <p class="sub" data-en="Catalog with a live price calculator">Catálogo con cotizador en vivo</p>
-        <p class="desc" data-en="150+ pieces with gold and silver prices that recalculate on their own, and a complete WhatsApp checkout. Custom Python pipeline to process the photos.">Más de 150 piezas con precio de oro y plata que se recalcula solo, y compra completa por WhatsApp. Pipeline propio en Python para procesar las fotos.</p>
-        <div class="chips"><span data-en="150+ pieces">150+ piezas</span><span>SEO + schema.org</span><span data-en="WhatsApp checkout">Checkout por WhatsApp</span></div>
-        <a class="link" href="https://joyeriaestambul.com" target="_blank" rel="noopener" data-en="View project →">Ver el proyecto →</a>
+        <p class="sub" data-en="A Caracas jewelry store that sells on WhatsApp without paying a cent in platform fees.">Una joyería de Caracas que vende por WhatsApp sin pagarle comisión a ninguna plataforma.</p>
+        <dl class="story">
+          <div><dt data-en="Problem">Problema</dt><dd data-en="Selling custom jewelry through chat, with gold and silver prices that change every week and no platform to pay for.">Vender joyería a medida por mensajes, con precios de oro y plata que cambian cada semana y sin pagar una plataforma.</dd></div>
+          <div><dt data-en="What I built">Lo que construí</dt><dd data-en="The whole store: catalog, live quote engine (rings by size, chains by weight), guided WhatsApp checkout and a Python pipeline that crops and optimizes every photo.">La tienda completa: catálogo, cotizador en vivo (anillos por medida, cadenas por peso), compra guiada por WhatsApp y un pipeline en Python que recorta y optimiza cada foto.</dd></div>
+          <div><dt data-en="Result">Resultado</dt><dd data-en="153 pieces online under its own domain, prices that recalculate themselves every week, technical SEO with schema.org and a security audit before launch.">153 piezas en línea bajo su propio dominio, precios que se recalculan solos cada semana, SEO técnico con schema.org y una auditoría de seguridad antes de publicar.</dd></div>
+        </dl>
+        <div class="chips"><span data-en="153 pieces">153 piezas</span><span data-en="Live gold/silver pricing">Precio de oro y plata en vivo</span><span>SEO + schema.org</span><span>Python</span></div>
+        <a class="link" href="https://joyeriaestambul.com" target="_blank" rel="noopener" data-en="See the live store →">Ver la tienda en vivo →</a>
       </article>
 
       <article class="card">
         <div class="meta"><span data-en="Aug 2026">Ago 2026</span><span class="pill" data-en="Public demo">Demo pública</span></div>
         <h3 data-en="Performance gamification portal">Portal de gamificación de desempeño</h3>
-        <p class="sub" data-en="Performance turned into a game">El desempeño convertido en juego</p>
-        <p class="desc" data-en="Five performance dimensions turned into redeemable points, with team rankings and a rewards store.">Cinco dimensiones de desempeño convertidas en puntos canjeables, con ranking entre equipos y tienda de premios.</p>
-        <div class="chips"><span>React + TypeScript</span><span data-en="Live ranking">Ranking en vivo</span></div>
-        <a class="link" href="https://cinavibecoding.github.io/orbita-demo/" target="_blank" rel="noopener" data-en="View public version →">Ver versión pública →</a>
+        <p class="sub" data-en="Performance turned into a game people actually want to play.">El desempeño convertido en un juego que la gente quiere jugar.</p>
+        <dl class="story">
+          <div><dt data-en="Problem">Problema</dt><dd data-en="Motivating a team to get certified, innovate and hit goals when everything lived in spreadsheets and scattered emails.">Motivar a un equipo a certificarse, innovar y cumplir metas cuando todo vivía en hojas de cálculo y correos sueltos.</dd></div>
+          <div><dt data-en="What I built">Lo que construí</dt><dd data-en="A complete app: five performance dimensions turned into redeemable points, an action catalog, an approvals log, team rankings and a rewards store.">Una app completa: cinco dimensiones de desempeño convertidas en puntos canjeables, catálogo de acciones, bitácora de aprobaciones, ranking entre equipos y tienda de premios.</dd></div>
+          <div><dt data-en="Result">Resultado</dt><dd data-en="A working prototype end to end that anyone can try in the public demo.">Un prototipo funcional de punta a punta que cualquiera puede probar en la demo pública.</dd></div>
+        </dl>
+        <div class="chips"><span>React 19 + TypeScript</span><span data-en="Live ranking">Ranking en vivo</span><span data-en="Points and rewards">Puntos y premios</span></div>
+        <a class="link" href="https://cinavibecoding.github.io/orbita-demo/" target="_blank" rel="noopener" data-en="Try the demo →">Probar la demo →</a>
         <p class="note" data-en="Fictional data and branding in the demo.">Datos y marca ficticios en la demo.</p>
+      </article>
+
+      <article class="card">
+        <div class="meta"><span>Oct 2026</span><span class="pill" data-en="In use">En uso</span></div>
+        <h3 data-en="A thesis survey app that works without internet">Encuesta de tesis que funciona sin internet</h3>
+        <p class="sub" data-en="150 in-person surveys in a hospital, without depending on a signal.">150 encuestas presenciales en un hospital, sin depender de que haya señal.</p>
+        <dl class="story">
+          <div><dt data-en="Problem">Problema</dt><dd data-en="Our psychology thesis needed 150 participants in a hospital. A Google Form doesn't work without internet, and the alternative was paper: typing every questionnaire into Excel by hand.">Nuestra tesis de psicología necesitaba 150 participantes en un hospital. Un Google Form no funciona sin internet y la alternativa era el papel: pasar cada cuestionario a Excel a mano.</dd></div>
+          <div><dt data-en="What I built">Lo que construí</dt><dd data-en="With Claude Code, an iPad app that keeps working with no signal: it saves each survey on the device and, with one tap, sends the queue to the Google Form only once it confirms real internet (it even spots captive-portal Wi-Fi). It screens eligibility on the spot, scores the scales and alerts the interviewer if an answer signals risk.">Con Claude Code, una app para iPad que sigue funcionando sin señal: guarda cada encuesta en el dispositivo y, con un toque, envía la cola al Google Form solo cuando comprueba que hay internet de verdad (detecta incluso el Wi-Fi con portal cautivo). Filtra en el momento quién cumple los criterios del estudio, calcula los puntajes de las escalas y avisa al encuestador si una respuesta indica riesgo.</dd></div>
+          <div><dt data-en="Result">Resultado</dt><dd data-en="In real use with participants: every answer stays safe on the iPad until it reaches the Form, with CSV (Excel) and JSON backups.">En uso real con participantes: cada respuesta queda a salvo en el iPad hasta que llega al Form, con respaldo en CSV (para Excel) y JSON.</dd></div>
+        </dl>
+        <div class="chips"><span>Offline-first (PWA)</span><span>iPad</span><span>JavaScript</span><span>Claude Code</span></div>
+        <p class="note" data-en="In real use with participants: no public demo, so test data never mixes with the thesis data.">En uso real con participantes: sin demo pública, para que los datos de prueba no se mezclen con los de la tesis.</p>
+      </article>
+
+      <article class="card">
+        <div class="meta"><span>Oct 2026</span><span class="pill" data-en="In use">En uso</span></div>
+        <h3 data-en="AI job-search engine for bootcamp graduates">Buscador de empleos con IA para recién graduados</h3>
+        <p class="sub" data-en="From a fresh graduate's résumé to a list of vetted openings, every week and never the same one twice.">Del CV de un recién graduado a una lista de vacantes verificadas, cada semana y sin repetir ninguna.</p>
+        <dl class="story">
+          <div><dt data-en="Problem">Problema</dt><dd data-en="Hunting for junior openings by hand is slow, and searching only for “AI Engineer” doesn't work: that title almost always asks for years of experience. More than 20 postings with that title were discarded for requiring 3+ years.">Buscar vacantes junior a mano es lento, y buscar solo “AI Engineer” no funciona: ese título casi siempre pide años de experiencia. Más de 20 ofertas con ese título quedaron descartadas por pedir 3 años o más.</dd></div>
+          <div><dt data-en="What I built">Lo que construí</dt><dd data-en="With Claude Code: a Python script that queries 8+ sources (Dreamwork via MCP, 2027 internship lists, Hacker News, Greenhouse, Lever and Ashby boards…), a skill and a subagent that match each résumé to roles nobody was searching for, and a memory that learns from every delivery.">Con Claude Code: un script en Python que consulta más de 8 fuentes (Dreamwork vía MCP, listas de internships 2027, Hacker News, bolsas de Greenhouse, Lever y Ashby…), una skill y un subagente que cruzan cada CV con roles que nadie estaba buscando, y una memoria que aprende de cada entrega.</dd></div>
+          <div><dt data-en="Result">Resultado</dt><dd data-en="5 to 8 targeted openings per student, with requirements flagged. Of the 19 qualifying postings I delivered, only 5 had “AI” in the title — the rest were adjacent roles. I also vetted and rejected 5 tools before wiring in the final sources.">De 5 a 8 vacantes dirigidas por estudiante, con los requisitos marcados. De las 19 ofertas aptas que entregué, solo 5 llevaban “AI” en el título: el resto eran roles adyacentes. Además evalué y descarté 5 herramientas antes de integrar las fuentes definitivas.</dd></div>
+        </dl>
+        <div class="chips"><span data-en="8+ sources">8+ fuentes</span><span data-en="MCP + skill + subagent">MCP + skill + subagente</span><span>Python</span><span data-en="Read-only and audited">Solo lectura y auditado</span></div>
+        <p class="note" data-en="Built for the GeekForce program at 4Geeks Academy. No student data is published.">Hecho para el programa GeekForce de 4Geeks Academy. No se publican datos de estudiantes.</p>
       </article>
 
       <article class="card dk">
         <div class="meta"><span>2026</span><span class="pill" data-en="Skill">Habilidad</span></div>
         <h3 data-en="AI agent design and orchestration">Diseño y orquestación de agentes de IA</h3>
-        <p class="sub" data-en="Teams of agents working together">Equipos de agentes que trabajan en conjunto</p>
-        <p class="desc" data-en="Specialized agents, subagents and work trees where one agent coordinates others, with Copilot Studio and Claude Cowork.">Agentes especializados, subagentes y árboles de trabajo donde un agente coordina a otros, con Copilot Studio y Claude Cowork.</p>
+        <p class="sub" data-en="Teams of AI agents where each one does what it does best.">Equipos de agentes de IA donde cada uno hace lo que mejor sabe.</p>
+        <dl class="story">
+          <div><dt data-en="Problem">Problema</dt><dd data-en="A general chat isn't enough when a problem has several steps, different sources and different kinds of decisions.">Un chat general no alcanza cuando el problema tiene varios pasos, fuentes distintas y decisiones de naturaleza distinta.</dd></div>
+          <div><dt data-en="What I built">Lo que construí</dt><dd data-en="I train agents for specific tasks, decide when a dedicated subagent is worth it and connect them in work trees where one agent coordinates others.">Entreno agentes para tareas concretas, decido cuándo conviene un subagente dedicado y los conecto en árboles de trabajo donde un agente coordina a otros.</dd></div>
+          <div><dt data-en="Result">Resultado</dt><dd data-en="Applied in real projects: two Microsoft Copilot Studio agents for a talent team, and in my own work Claude Cowork plus the job-search engine's subagent.">Aplicado en proyectos reales: dos agentes en Microsoft Copilot Studio para un equipo de talento y, en lo mío, Claude Cowork y el subagente del buscador de empleos.</dd></div>
+        </dl>
         <div class="chips"><span>Copilot Studio</span><span>Claude Cowork</span><span data-en="Multi-agent">Multi-agente</span></div>
       </article>
 
       <article class="card dash">
         <div class="meta"><span data-en="Aug — Sep 2026">Ago — Sep 2026</span><span class="pill" data-en="Confidential">Confidencial</span></div>
         <h3 data-en="Performance report automation">Automatización de informes de desempeño</h3>
-        <p class="sub" data-en="From Excel to PDF, with an automatic audit">De Excel a PDF, con auditoría automática</p>
-        <p class="desc" data-en="A 6-page report generated from each person's data, with a quality-control pass before delivery.">Informe de 6 páginas generado con los datos de cada persona, con una pasada de control de calidad antes de entregar.</p>
-        <div class="chips"><span data-en="Excel → PDF">Excel → PDF</span><span data-en="Quality control">Control de calidad</span></div>
+        <p class="sub" data-en="From days of manual work to minutes: reports that build themselves.">De días de trabajo manual a minutos: informes que se arman solos.</p>
+        <dl class="story">
+          <div><dt data-en="Problem">Problema</dt><dd data-en="Every individual feedback report was assembled by hand in Canva: slow, and no two looked alike.">Cada devolución individual se armaba a mano en Canva: lento, y ningún informe se veía igual.</dd></div>
+          <div><dt data-en="What I built">Lo que construí</dt><dd data-en="I documented the process and built a code template (HTML + CSS + SVG → PDF) that takes each person's data from Excel and generates a 6-page report, with an automatic audit that catches name, accent and mixed-up data errors before delivery.">Documenté el proceso y construí una plantilla en código (HTML + CSS + SVG → PDF) que toma los datos de cada persona desde Excel y genera un informe de 6 páginas, con una auditoría automática que atrapa errores de nombres, tildes y datos cruzados antes de entregar.</dd></div>
+          <div><dt data-en="Result">Resultado</dt><dd data-en="Several dozen reports with identical design, checked before they go out, in minutes instead of days.">Varias decenas de informes con diseño idéntico, revisados antes de salir, en minutos en lugar de días.</dd></div>
+        </dl>
+        <div class="chips"><span data-en="Excel → PDF">Excel → PDF</span><span data-en="Automatic audit">Auditoría automática</span></div>
         <p class="note" data-en="Internal project — no repository or public demo.">Proyecto interno — sin repositorio ni demo pública.</p>
       </article>
 
       <article class="card">
         <div class="meta"><span data-en="May — Jun 2026">May — Jun 2026</span><span class="pill" data-en="Public demo">Demo pública</span></div>
         <h3 data-en="Meeting-room booking system">Sistema de reserva de salas</h3>
-        <p class="sub" data-en="From email back-and-forth to a calendar">Del ir y venir de correos a un calendario</p>
-        <p class="desc" data-en="Room requests, an admin approval panel, filterable history and CSV export.">Solicitud de salas, panel de aprobación para administradores, historial con filtros y exportación a CSV.</p>
-        <div class="chips"><span>Supabase</span><span data-en="Live calendar">Calendario en vivo</span></div>
-        <a class="link" href="https://cinavibecoding.github.io/reserva-de-salas/" target="_blank" rel="noopener" data-en="View public version →">Ver versión pública →</a>
+        <p class="sub" data-en="No more email back-and-forth: a calendar that shows instantly which room is free.">Adiós al ir y venir de correos: un calendario que muestra al instante qué sala está libre.</p>
+        <dl class="story">
+          <div><dt data-en="Problem">Problema</dt><dd data-en="Coordinating who used each room meant emails and phone calls, with no way to see at a glance what was free.">Coordinar quién usaba cada sala era un ir y venir de correos y llamadas, sin forma de ver de un vistazo qué estaba libre.</dd></div>
+          <div><dt data-en="What I built">Lo que construí</dt><dd data-en="A complete app: public view of approved bookings, request form, admin approval panel, filterable history and CSV export.">Una app completa: vista pública de reservas aprobadas, formulario de solicitud, panel de aprobación para administradores, historial con filtros y exportación a CSV.</dd></div>
+          <div><dt data-en="Result">Resultado</dt><dd data-en="An end-to-end flow, from request to approval, with checks that prevent double bookings, and a public demo to try it.">Un flujo de punta a punta, de la solicitud a la aprobación, con validaciones que evitan choques de horario, y una demo pública para probarlo.</dd></div>
+        </dl>
+        <div class="chips"><span>Supabase</span><span data-en="Live calendar">Calendario en vivo</span><span data-en="CSV export">Exportación CSV</span></div>
+        <a class="link" href="https://cinavibecoding.github.io/reserva-de-salas/" target="_blank" rel="noopener" data-en="Try the demo →">Probar la demo →</a>
         <p class="note" data-en="Fictional data in the demo.">Datos ficticios en la demo.</p>
       </article>
 
