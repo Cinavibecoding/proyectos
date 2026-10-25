@@ -25,7 +25,7 @@ window.FORM = {
           options: ["Menos de un mes", "Menos de un año", "Entre uno y dos años", "Entre dos y cuatro años", "Más de cuatro años"], exclude: ["Menos de un mes"] },
         { key: "laboral", entry: "979871757", q: "Condición / Situación laboral actual", type: "choice", other: true,
           options: ["Empleado activo (tiempo completo o parcial)", "Trabajador independiente / Cuenta propia", "Desempleado", "Jubilado / Pensionado", "Labores del hogar / Ama de casa"] },
-        { key: "residencia", entry: "675845344", q: "¿Vive actualmente en el Área Metropolitana de Caracas?", type: "choice", options: ["Sí", "No"], exclude: ["No"] }
+        { key: "residencia", entry: "675845344", q: "¿Vive actualmente en el Área Metropolitana de Caracas?", type: "choice", options: ["Sí", "No"] }
       ]
     },
     {

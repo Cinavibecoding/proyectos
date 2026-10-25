@@ -81,7 +81,7 @@ function home(){
   '<div class="wrap">'+
    '<div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap">'+
      '<div class="small muted" style="font-weight:600">Tesis · Rojas y Kasabji</div>'+
-     (online() ? '<span class="pill on"><i></i>Con conexión</span>' : '<span class="pill off"><i></i>Sin señal · todo se guarda en este iPad</span>')+
+     (online() ? '<span class="pill on"><i></i>Con conexión</span>' : '<span class="pill off"><i></i>Sin señal · todo se guarda en este teléfono</span>')+
    '</div>'+
    '<h1>Depresión en pacientes cardíacos</h1>'+
    '<div class="stats">'+
@@ -96,10 +96,10 @@ function home(){
    '<div class="card">'+
      '<label class="f">Quién aplica</label><input type="text" id="rec" placeholder="Ej. Victor" value="'+esc(st.recolector)+'" autocomplete="off">'+
      '<label class="f">Lugar</label><input type="text" id="lug" value="'+esc(st.lugar)+'" autocomplete="off">'+
-     '<p class="small muted">Solo queda en el respaldo de este iPad; no se envía al Form.<br>No aceptaron: '+rech+' · No cumplieron criterios: '+noel+'.</p>'+
+     '<p class="small muted">Solo queda en el respaldo de este teléfono; no se envía al Form.<br>No aceptaron: '+rech+' · No cumplieron criterios: '+noel+'.</p>'+
    '</div>'+
    '<div class="row"><button class="btn secondary" id="csv">Respaldo Excel (CSV)</button><button class="btn secondary" id="json">Respaldo completo (JSON)</button></div>'+
-   '<button class="btn ghost" id="list">Ver registros de este iPad</button>'+
+   '<button class="btn ghost" id="list">Ver registros de este teléfono</button>'+
    '<button class="btn ghost" id="imp">Importar respaldo JSON</button><input type="file" id="impf" accept="application/json,.json" class="hidden">'+
    '<p class="small muted center">Versión '+esc(window.APP_VERSION||"")+'</p>'+
   '</div>';
@@ -138,7 +138,7 @@ function render(){
       '<button class="iconbtn" id="exit">Salir</button></div></div>';
   var body = "";
   if(s.kind==="check"){
-    body = '<div class="sec">Solo para el encuestador</div><h1>Antes de entregar el iPad</h1>'+
+    body = '<div class="sec">Solo para el encuestador</div><h1>Antes de entregar el teléfono</h1>'+
       '<p class="muted">Confirme en persona (criterios de la tesis):</p>'+
       ['Es mayor de 18 años','Puede leer y responder por sí mismo','No presenta deterioro cognitivo severo aparente','No está en una emergencia médica aguda'].map(function(t,i){ return '<button class="opt chk" data-c="'+i+'"><span class="dot box"></span><span>'+t+'</span></button>'; }).join('')+
       '<button class="btn" id="next" disabled>Todo correcto: entregar al paciente</button>'+
@@ -287,13 +287,13 @@ function finish(){
   if(!saveRecords(recs)) return;
   del(DKEY); draft = null;
   onHome = false;
-  app.innerHTML = '<div class="wrap center" style="padding-top:16vh"><div class="big">💙</div><h1>¡Muchas gracias por participar!</h1><p class="muted">'+esc(F.thanks)+'</p><p class="muted">Por favor, devuelva el iPad a la persona encuestadora.</p><button class="btn secondary" id="inv" style="margin-top:40px">Encuestador: continuar ›</button></div>';
+  app.innerHTML = '<div class="wrap center" style="padding-top:16vh"><div class="big">💙</div><h1>¡Muchas gracias por participar!</h1><p class="muted">'+esc(F.thanks)+'</p><p class="muted">Por favor, devuelva el teléfono a la persona encuestadora.</p><button class="btn secondary" id="inv" style="margin-top:40px">Encuestador: continuar ›</button></div>';
   document.getElementById("inv").onclick = function(){ researcher(rec, recs.length); };
 }
 function researcher(rec, n){
   onHome = false;
   var risk = rec.item9>=1;
-  app.innerHTML = '<div class="wrap"><div class="sec">Solo para el encuestador</div><h1>Encuesta n.º '+n+' guardada en este iPad</h1>'+
+  app.innerHTML = '<div class="wrap"><div class="sec">Solo para el encuestador</div><h1>Encuesta n.º '+n+' guardada en este teléfono</h1>'+
     (risk ? '<div class="alert danger"><b>Atención: ítem 9 del BDI-II = '+rec.item9+'</b> ('+esc(F.sections[3].items[8].options[rec.item9])+').<br>Antes de que el paciente se retire, aplique el protocolo de riesgo acordado con su tutora y el servicio (avisar al equipo tratante / psicología del hospital).</div>' : '')+
     '<div class="card"><b>BDI-II total:</b> '+rec.bdiTotal+' ('+bdiLevel(rec.bdiTotal)+')<br><span class="small muted">Dato orientativo para el encuestador. No es un diagnóstico.</span></div>'+
     '<div class="alert ok">Quedó guardada. Se envía al Form cuando toques “Enviar” con internet.</div>'+
@@ -330,7 +330,7 @@ function syncAll(){
   syncing = true;
   modal.innerHTML = '<div class="modal"><div class="card center"><h2>Comprobando internet…</h2></div></div>';
   realInternet().then(function(ok){
-    if(!ok){ syncing=false; modal.innerHTML=""; showModal("<h2>Todavía no hay internet</h2><p>Las encuestas siguen guardadas en este iPad. Intente de nuevo cuando tenga señal o Wi-Fi.</p>", [["OK", home]]); return; }
+    if(!ok){ syncing=false; modal.innerHTML=""; showModal("<h2>Todavía no hay internet</h2><p>Las encuestas siguen guardadas en este teléfono. Intente de nuevo cuando tenga señal o Wi-Fi.</p>", [["OK", home]]); return; }
     var i = 0, ok2 = 0, fail = 0;
     modal.innerHTML = '<div class="modal"><div class="card center"><h2>Enviando…</h2><p id="prog">0 de '+pend.length+'</p><p class="small muted">No cierre la app.</p></div></div>';
     (function step(){
@@ -392,7 +392,7 @@ function importJSON(ev){
 function listView(){
   onHome = false;
   var recs = records().slice().reverse();
-  app.innerHTML = '<div class="wrap"><button class="iconbtn" id="h">‹ Inicio</button><h1>Registros en este iPad</h1>'+
+  app.innerHTML = '<div class="wrap"><button class="iconbtn" id="h">‹ Inicio</button><h1>Registros en este teléfono</h1>'+
     (recs.length ? '<div class="card list">'+recs.map(function(r, k){ return '<div class="it"><span>#'+(recs.length-k)+' · '+fmt(r.fin)+' · '+esc(r.recolector||"—")+(r.item9>=1?' · <b style="color:var(--danger)">ítem 9 = '+r.item9+'</b>':'')+'</span><span class="tag '+(r.estado==="enviada"?'s':'p')+'">'+(r.estado==="enviada"?'enviada':'pendiente')+'</span></div>'; }).join("")+'</div>' : '<p class="muted">Todavía no hay encuestas.</p>')+
     '<p class="small muted">Las encuestas enviadas se conservan aquí como respaldo. Nunca se borran solas.</p></div>';
   document.getElementById("h").onclick = home;
