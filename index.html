@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Victor Rojas</title>
-<meta name="description" content="Victor Rojas · Psicología + IA. Siete proyectos reales: tienda en vivo, portal de gamificación, encuesta de tesis sin internet, buscador de empleos con IA y agentes.">
+<meta name="description" content="Victor Rojas · Psicología + IA. Un buscador de empleos con IA para recién graduados, equipos de agentes que se auditan entre sí, una tienda en vivo y más proyectos reales.">
 <script>
   (function(){
     try{
@@ -80,6 +80,22 @@
   .idx-k{display:block;font:700 11px var(--head);letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:4px;}
   .idx-v{font-size:15px;color:var(--ink);}
 
+
+  [hidden]{display:none !important;}
+
+  /* ---------- juego ---------- */
+  .game{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);overflow:hidden;margin-bottom:16px;}
+  .game-h{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:13px 20px;border-bottom:1px solid var(--line);font:700 14px var(--head);}
+  .game-score{font:600 12px var(--head);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);}
+  .game-stage{position:relative;background:var(--bg);}
+  .game canvas{display:block;width:100%;height:auto;touch-action:pan-y;}
+  .game.playing canvas{touch-action:none;}
+  .game-ov{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;padding:14px;background:color-mix(in srgb, var(--bg) 84%, transparent);}
+  .game-ov p{margin:0;font:600 15px/1.35 var(--head);color:var(--ink);max-width:30ch;}
+  .game-btns{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;}
+  .game-btns .btn{min-height:42px;padding:0 20px;font-size:14px;cursor:pointer;}
+  .game-hint{padding:11px 20px;font-size:12.5px;line-height:1.45;color:var(--muted);border-top:1px solid var(--line);}
+
   /* ---------- proyectos ---------- */
   .sec{padding-top:72px;padding-bottom:16px;}
   .sec h2{font:800 clamp(30px,3.6vw,46px)/1.08 var(--head);letter-spacing:-.03em;margin:0 0 36px;text-wrap:balance;}
@@ -100,7 +116,7 @@
   .card.hl .sub{color:var(--accent-ink);}
   .card.dk .sub{color:var(--dark-ink);}
   .story{margin:4px 0 0;display:grid;gap:14px;}
-  .story > div{display:grid;gap:4px;}
+  .story > div{display:grid;gap:4px;align-content:start;}
   .story dt{font:700 11px var(--head);letter-spacing:.12em;text-transform:uppercase;color:var(--accent);}
   .story dd{margin:0;font-size:14.5px;line-height:1.6;color:var(--muted);}
   .card.wide .story{grid-template-columns:repeat(3,1fr);gap:28px;}
@@ -108,6 +124,13 @@
   .card.hl .story dd{color:var(--accent-ink);}
   .card.dk .story dt{color:var(--dark-ink);opacity:.65;}
   .card.dk .story dd{color:var(--dark-muted);}
+  .sec h2.more{font-size:clamp(24px,2.6vw,32px);margin:64px 0 28px;}
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px 28px;margin:6px 0 2px;padding:18px 0;border-top:1px solid color-mix(in srgb, currentColor 30%, transparent);border-bottom:1px solid color-mix(in srgb, currentColor 30%, transparent);}
+  .stats > div{display:grid;gap:4px;align-content:start;}
+  .stats b{font:800 clamp(32px,3.6vw,44px)/1 var(--head);letter-spacing:-.03em;}
+  .stats span{font-size:13px;line-height:1.4;opacity:.88;}
+  .card.hl .note{color:var(--accent-ink);opacity:.92;}
+  .card.dk .note{color:var(--dark-muted);}
   .sec-lede{font-size:17px;line-height:1.6;color:var(--muted);max-width:68ch;margin:-16px 0 32px;}
   .desc{font-size:15px;line-height:1.6;color:var(--muted);margin:0;}
   .card.hl .desc{color:var(--accent-ink);}
@@ -150,6 +173,8 @@
     .sec{padding-top:52px;}
     .card{padding:24px;}
     .card.wide .story{grid-template-columns:1fr;gap:14px;}
+    .stats{grid-template-columns:1fr 1fr;gap:16px 18px;}
+    .sec h2.more{margin-top:48px;}
     .foot{margin-top:52px;padding-top:44px;padding-bottom:44px;}
   }
 </style>
@@ -181,7 +206,7 @@
     <div class="hero-l">
       <p class="eyebrow" data-en="Psychology + AI for people and talent">Psicología + IA para personas y talento</p>
       <h1><span data-en="I turn real problems">Convierto problemas reales</span> <em data-en="into AI-built products.">en productos con IA.</em></h1>
-      <p class="lede" data-en="I study psychology and build with AI what teams and organizations need: a store that sells on WhatsApp, a portal that turns performance into a game, a survey app that works without internet and a job-search engine that finds openings for new graduates. Today I'm a Career Support Coach Intern at 4Geeks Academy.">Estudio psicología y construyo con IA lo que necesitan los equipos y las organizaciones: una tienda que vende por WhatsApp, un portal que vuelve el desempeño un juego, una encuesta que funciona sin internet y un buscador que le consigue vacantes a recién graduados. Hoy soy Career Support Coach Intern en 4Geeks Academy.</p>
+      <p class="lede" data-en="I study psychology and build with AI for talent teams: a job-search engine for new graduates, agents that audit each other, a live store. Today I’m a Career Support Coach Intern at 4Geeks Academy.">Estudio psicología y construyo con IA para equipos de talento: un buscador de empleos para recién graduados, agentes que se auditan entre sí, una tienda en vivo. Hoy soy Career Support Coach Intern en 4Geeks Academy.</p>
       <div class="cta">
         <a class="btn pri" href="#proyectos" data-en="View projects">Ver proyectos</a>
         <a class="btn" href="mailto:victorjarrin0205@gmail.com">Email</a>
@@ -190,32 +215,110 @@
       </div>
     </div>
     <aside class="hero-r">
+      <div class="game" id="game">
+        <div class="game-h"><span data-en="# quick break"># pausa rápida</span><span class="game-score" id="gScore" aria-live="polite"></span></div>
+        <div class="game-stage">
+          <canvas id="gCanvas" width="800" height="400" role="img" aria-label="Juego de la serpiente"></canvas>
+          <div class="game-ov" id="gOv">
+            <p id="gMsg"></p>
+            <div class="game-btns"><button type="button" class="btn pri" id="gBtn"></button><a class="btn" id="gCta" href="#contacto" hidden></a></div>
+          </div>
+        </div>
+        <div class="game-hint" data-en="Arrow keys or WASD. On a phone, swipe. No walls: watch your tail.">Flechas o WASD. En el celular, desliza. Sin paredes: cuidado con tu cola.</div>
+      </div>
       <div class="idx">
         <div class="idx-h" data-en="# projects"># proyectos</div>
-        <div class="idx-row"><span class="idx-k" data-en="01 · Live">01 · Publicado</span><span class="idx-v">Joyería Estambul</span></div>
-        <div class="idx-row"><span class="idx-k" data-en="02 · Public demo">02 · Demo pública</span><span class="idx-v" data-en="Gamification portal">Portal de gamificación</span></div>
-        <div class="idx-row"><span class="idx-k" data-en="03 · In use">03 · En uso</span><span class="idx-v" data-en="Offline thesis survey">Encuesta de tesis sin internet</span></div>
+        <div class="idx-row"><span class="idx-k" data-en="01 · In use">01 · En uso</span><span class="idx-v" data-en="AI job-search engine for graduates">Buscador de empleos con IA</span></div>
+        <div class="idx-row"><span class="idx-k" data-en="02 · In use">02 · En uso</span><span class="idx-v" data-en="AI agent orchestration">Orquestación de agentes de IA</span></div>
+        <div class="idx-row"><span class="idx-k" data-en="03 · Live">03 · Publicado</span><span class="idx-v">Joyería Estambul</span></div>
       </div>
     </aside>
   </section>
 
   <section class="sec wrap" id="proyectos">
     <p class="eyebrow" data-en="Projects">Proyectos</p>
-    <h2><span data-en="Seven projects,">Siete proyectos,</span> <em data-en="each one solves a real problem.">cada uno resuelve un problema real.</em></h2>
-    <p class="sec-lede" data-en="I built them with AI, and I say it plainly: I frame the problem, set the rules and verify the result; Claude, Copilot and Lovable speed up the code.">Los construí con IA, y lo digo sin rodeos: yo planteo el problema, defino las reglas y verifico el resultado; Claude, Copilot y Lovable aceleran el código.</p>
+    <h2><span data-en="Three flagship projects,">Tres proyectos principales,</span> <em data-en="one real problem each.">un problema real cada uno.</em></h2>
+    <p class="sec-lede" data-en="I build them with AI and say so plainly: I frame the problem, set the rules and verify; AI speeds up the code.">Los construyo con IA y lo digo claro: yo defino el problema, las reglas y verifico; la IA acelera el código.</p>
     <div class="grid">
 
       <article class="card hl wide">
-        <div class="meta"><span>May — Sep 2026</span><span class="pill" data-en="Live">Publicado</span></div>
-        <h3>Joyería Estambul</h3>
-        <p class="sub" data-en="A Caracas jewelry store that sells on WhatsApp without paying a cent in platform fees.">Una joyería de Caracas que vende por WhatsApp sin pagarle comisión a ninguna plataforma.</p>
+        <div class="meta"><span data-en="Oct — Nov 2026">Oct — Nov 2026</span><span class="pill" data-en="In use">En uso</span></div>
+        <h3 data-en="AI job-search engine for bootcamp graduates">Buscador de empleos con IA para recién graduados</h3>
+        <p class="sub" data-en="The “AI Engineer” title almost always asks for years of experience. My search engine finds the junior roles that do exist.">El título “AI Engineer” casi siempre pide años de experiencia. Mi buscador encuentra los puestos junior que sí existen.</p>
+        <div class="stats">
+          <div><b>90+</b><span data-en="verified openings">vacantes verificadas</span></div>
+          <div><b>10</b><span data-en="graduates served">egresados atendidos</span></div>
+          <div><b>8+</b><span data-en="sources searched">fuentes consultadas</span></div>
+          <div><b>0</b><span data-en="automatic sends: a person decides">envíos automáticos: decide una persona</span></div>
+        </div>
         <dl class="story">
-          <div><dt data-en="Problem">Problema</dt><dd data-en="Selling custom jewelry through chat, with gold and silver prices that change every week and no platform to pay for.">Vender joyería a medida por mensajes, con precios de oro y plata que cambian cada semana y sin pagar una plataforma.</dd></div>
-          <div><dt data-en="What I built">Lo que construí</dt><dd data-en="The whole store: catalog, live quote engine (rings by size, chains by weight), guided WhatsApp checkout and a Python pipeline that crops and optimizes every photo.">La tienda completa: catálogo, cotizador en vivo (anillos por medida, cadenas por peso), compra guiada por WhatsApp y un pipeline en Python que recorta y optimiza cada foto.</dd></div>
-          <div><dt data-en="Result">Resultado</dt><dd data-en="153 pieces online under its own domain, prices that recalculate themselves every week, technical SEO with schema.org and a security audit before launch.">153 piezas en línea bajo su propio dominio, precios que se recalculan solos cada semana, SEO técnico con schema.org y una auditoría de seguridad antes de publicar.</dd></div>
+          <div><dt data-en="Problem">Problema</dt><dd data-en="One coach can’t review hundreds of postings per person, and searching “AI Engineer” fails: 20+ asked for 3+ years.">Un coach no puede revisar cientos de ofertas por persona, y buscar “AI Engineer” falla: más de 20 pedían 3+ años.</dd></div>
+          <div><dt data-en="What I built">Lo que construí</dt><dd data-en="A skill and a subagent match each résumé and GitHub to adjacent roles; a Python script searches 8+ sources. Only verified postings under 7 days old.">Una skill y un subagente cruzan CV y GitHub con roles adyacentes; un script en Python recorre 8+ fuentes. Solo ofertas de máximo 7 días, verificadas.</dd></div>
+          <div><dt data-en="Result">Resultado</dt><dd data-en="A few well-chosen openings per person, audited before sending. Of the first 19 qualifying, only 5 said “AI” in the title.">Pocas vacantes bien elegidas por persona, auditadas antes de enviar. De las primeras 19 aptas, solo 5 decían “AI” en el título.</dd></div>
+        </dl>
+        <div class="chips"><span data-en="8+ sources">8+ fuentes</span><span data-en="MCP + skill + subagents">MCP + skill + subagentes</span><span>Python</span><span data-en="Read-only and audited">Solo lectura y auditado</span></div>
+        <p class="note" data-en="Made for the GeekForce program at 4Geeks. No student data; the résumé never leaves the computer.">Hecho para el programa GeekForce de 4Geeks. Sin datos de estudiantes; el CV nunca sale de la computadora.</p>
+      </article>
+
+      <article class="card dk wide">
+        <div class="meta"><span data-en="Oct — Nov 2026">Oct — Nov 2026</span><span class="pill" data-en="In use">En uso</span></div>
+        <h3 data-en="AI agent design and orchestration">Diseño y orquestación de agentes de IA</h3>
+        <p class="sub" data-en="Agents that check each other: the AI proposes, an auditor verifies, a person decides.">Agentes que se revisan entre sí: la IA propone, un auditor verifica, una persona decide.</p>
+        <div class="stats">
+          <div><b>4</b><span data-en="specialized subagents">subagentes especializados</span></div>
+          <div><b>2</b><span data-en="custom skills">skills propias</span></div>
+          <div><b>1</b><span data-en="automatic security audit every week">auditoría de seguridad automática cada semana</span></div>
+        </div>
+        <dl class="story">
+          <div><dt data-en="Problem">Problema</dt><dd data-en="One chat isn’t enough when a mistake costs credibility: sending a closed posting.">Un solo chat no alcanza cuando un error cuesta credibilidad: enviar una vacante cerrada.</dd></div>
+          <div><dt data-en="What I built">Lo que construí</dt><dd data-en="Separate roles: one searches, one drafts, an auditor checks links, freshness and tone. Small model to verify, strong one to decide.">Roles separados: uno busca, otro redacta, un auditor revisa links, vigencia y tono. Modelo pequeño para verificar, potente para decidir.</dd></div>
+          <div><dt data-en="Result">Resultado</dt><dd data-en="Nothing goes out without human approval; what agents read online is data, never orders. A security audit runs every Monday.">Nada sale sin aprobación humana; lo que leen en internet es dato, nunca orden. Una auditoría de seguridad corre cada lunes.</dd></div>
+        </dl>
+        <div class="chips"><span data-en="Subagents">Subagentes</span><span>Skills</span><span>MCP</span><span data-en="Scheduled tasks">Tareas programadas</span><span>Copilot Studio</span><span>Claude Cowork</span></div>
+      </article>
+
+      <article class="card wide">
+        <div class="meta"><span data-en="May — Sep 2026">May — Sep 2026</span><span class="pill" data-en="Live">Publicado</span></div>
+        <h3 data-en="Joyería Estambul">Joyería Estambul</h3>
+        <p class="sub" data-en="A Caracas jewelry store that sells on WhatsApp without paying platform fees.">Una joyería de Caracas que vende por WhatsApp sin pagar comisión a ninguna plataforma.</p>
+        <dl class="story">
+          <div><dt data-en="Problem">Problema</dt><dd data-en="Selling custom jewelry by chat, with gold and silver prices that change every week.">Vender joyería a medida por chat, con precios de oro y plata que cambian cada semana.</dd></div>
+          <div><dt data-en="What I built">Lo que construí</dt><dd data-en="The whole store: catalog, live quote engine and guided WhatsApp checkout.">La tienda completa: catálogo, cotizador en vivo y compra guiada por WhatsApp.</dd></div>
+          <div><dt data-en="Result">Resultado</dt><dd data-en="153 pieces online, prices that recalculate weekly, technical SEO and a security audit.">153 piezas en línea, precios que se recalculan solos cada semana, SEO técnico y auditoría de seguridad.</dd></div>
         </dl>
         <div class="chips"><span data-en="153 pieces">153 piezas</span><span data-en="Live gold/silver pricing">Precio de oro y plata en vivo</span><span>SEO + schema.org</span><span>Python</span></div>
         <a class="link" href="https://joyeriaestambul.com" target="_blank" rel="noopener" data-en="See the live store →">Ver la tienda en vivo →</a>
+      </article>
+
+    </div>
+
+    <h2 class="more"><span data-en="More work,">Más trabajos,</span> <em data-en="from psychology to software.">de la psicología al software.</em></h2>
+    <div class="grid">
+
+      <article class="card">
+        <div class="meta"><span data-en="Oct 2026">Oct 2026</span><span class="pill" data-en="In use">En uso</span></div>
+        <h3 data-en="A thesis survey app that works without internet">Encuesta de tesis que funciona sin internet</h3>
+        <p class="sub" data-en="For 150 participants in a hospital, without depending on a signal.">Para 150 participantes en un hospital, sin depender de la señal.</p>
+        <dl class="story">
+          <div><dt data-en="Problem">Problema</dt><dd data-en="A Google Form doesn’t work offline, and paper means typing everything into Excel by hand.">Un Google Form no funciona sin internet, y el papel obliga a pasar todo a Excel a mano.</dd></div>
+          <div><dt data-en="What I built">Lo que construí</dt><dd data-en="A phone/iPad app: saves each survey on the device and sends it to the Form only on real internet. Screens eligibility, scores scales and flags risk.">App para teléfono o iPad: guarda cada encuesta en el dispositivo y la envía al Form solo con internet real. Filtra criterios, calcula puntajes y alerta riesgo.</dd></div>
+          <div><dt data-en="Result">Resultado</dt><dd data-en="In use with participants, with CSV and JSON backups.">En uso con participantes, con respaldo en CSV y JSON.</dd></div>
+        </dl>
+        <div class="chips"><span>Offline-first (PWA)</span><span data-en="Phone + iPad">Celular + iPad</span><span>JavaScript</span><span>Claude Code</span></div>
+        <p class="note" data-en="In real use: no public demo, so test data never mixes in.">En uso real: sin demo pública para no mezclar datos de prueba.</p>
+      </article>
+
+      <article class="card">
+        <div class="meta"><span data-en="Oct 2026">Oct 2026</span><span class="pill" data-en="Ready">Preparado</span></div>
+        <h3 data-en="Impostor-syndrome workshop">Taller sobre el síndrome del impostor</h3>
+        <p class="sub" data-en="Concrete tools against self-doubt, before an interview.">Herramientas concretas contra la duda, antes de una entrevista.</p>
+        <dl class="story">
+          <div><dt data-en="Problem">Problema</dt><dd data-en="Many graduates doubt they deserve the job, and a pep talk gives them nothing to do.">Muchos egresados dudan de merecer el puesto, y una charla motivacional no les da qué hacer.</dd></div>
+          <div><dt data-en="What I built">Lo que construí</dt><dd data-en="15 slides, a 3-minute video made with code, a script and a 17-question Q&A drill, in English for 60–80 people.">15 láminas, un video de 3 minutos hecho con código, guion y simulacro de 17 preguntas, en inglés para 60–80 personas.</dd></div>
+          <div><dt data-en="Result">Resultado</dt><dd data-en="Of 12 scientific claims, 5 held as written, 5 were corrected and 2 were dropped.">De 12 citas científicas, 5 sirvieron tal cual, 5 se corrigieron y 2 se descartaron.</dd></div>
+        </dl>
+        <div class="chips"><span data-en="Psychology">Psicología</span><span data-en="Citation audit">Auditoría de citas</span><span>Remotion</span><span data-en="English">Inglés</span></div>
+        <p class="note" data-en="Made for GeekForce, 4Geeks Academy.">Hecho para GeekForce, 4Geeks Academy.</p>
       </article>
 
       <article class="card">
@@ -223,9 +326,9 @@
         <h3 data-en="Performance gamification portal">Portal de gamificación de desempeño</h3>
         <p class="sub" data-en="Performance turned into a game people actually want to play.">El desempeño convertido en un juego que la gente quiere jugar.</p>
         <dl class="story">
-          <div><dt data-en="Problem">Problema</dt><dd data-en="Motivating a team to get certified, innovate and hit goals when everything lived in spreadsheets and scattered emails.">Motivar a un equipo a certificarse, innovar y cumplir metas cuando todo vivía en hojas de cálculo y correos sueltos.</dd></div>
-          <div><dt data-en="What I built">Lo que construí</dt><dd data-en="A complete app: five performance dimensions turned into redeemable points, an action catalog, an approvals log, team rankings and a rewards store.">Una app completa: cinco dimensiones de desempeño convertidas en puntos canjeables, catálogo de acciones, bitácora de aprobaciones, ranking entre equipos y tienda de premios.</dd></div>
-          <div><dt data-en="Result">Resultado</dt><dd data-en="A working prototype end to end that anyone can try in the public demo.">Un prototipo funcional de punta a punta que cualquiera puede probar en la demo pública.</dd></div>
+          <div><dt data-en="Problem">Problema</dt><dd data-en="Motivating a team when everything lived in spreadsheets and emails.">Motivar a un equipo cuando todo vivía en hojas de cálculo y correos.</dd></div>
+          <div><dt data-en="What I built">Lo que construí</dt><dd data-en="Redeemable points, team rankings, an approvals log and a rewards store.">Puntos canjeables, ranking entre equipos, bitácora de aprobaciones y tienda de premios.</dd></div>
+          <div><dt data-en="Result">Resultado</dt><dd data-en="A working end-to-end prototype with a public demo.">Prototipo funcional de punta a punta, con demo pública.</dd></div>
         </dl>
         <div class="chips"><span>React 19 + TypeScript</span><span data-en="Live ranking">Ranking en vivo</span><span data-en="Points and rewards">Puntos y premios</span></div>
         <a class="link" href="https://cinavibecoding.github.io/orbita-demo/" target="_blank" rel="noopener" data-en="Try the demo →">Probar la demo →</a>
@@ -233,41 +336,16 @@
       </article>
 
       <article class="card">
-        <div class="meta"><span>Oct 2026</span><span class="pill" data-en="In use">En uso</span></div>
-        <h3 data-en="A thesis survey app that works without internet">Encuesta de tesis que funciona sin internet</h3>
-        <p class="sub" data-en="150 in-person surveys in a hospital, without depending on a signal.">150 encuestas presenciales en un hospital, sin depender de que haya señal.</p>
+        <div class="meta"><span data-en="Oct 2026">Oct 2026</span><span class="pill" data-en="Designed">Diseñado</span></div>
+        <h3 data-en="n8n workflows for the job search">Flujos de n8n para la búsqueda de empleo</h3>
+        <p class="sub" data-en="Four workflows that turn APIs and emails into a sheet of classified openings.">Cuatro flujos que convierten APIs y correos en una hoja de vacantes clasificadas.</p>
         <dl class="story">
-          <div><dt data-en="Problem">Problema</dt><dd data-en="Our psychology thesis needed 150 participants in a hospital. A Google Form doesn't work without internet, and the alternative was paper: typing every questionnaire into Excel by hand.">Nuestra tesis de psicología necesitaba 150 participantes en un hospital. Un Google Form no funciona sin internet y la alternativa era el papel: pasar cada cuestionario a Excel a mano.</dd></div>
-          <div><dt data-en="What I built">Lo que construí</dt><dd data-en="With Claude Code, an iPad app that keeps working with no signal: it saves each survey on the device and, with one tap, sends the queue to the Google Form only once it confirms real internet (it even spots captive-portal Wi-Fi). It screens eligibility on the spot, scores the scales and alerts the interviewer if an answer signals risk.">Con Claude Code, una app para iPad que sigue funcionando sin señal: guarda cada encuesta en el dispositivo y, con un toque, envía la cola al Google Form solo cuando comprueba que hay internet de verdad (detecta incluso el Wi-Fi con portal cautivo). Filtra en el momento quién cumple los criterios del estudio, calcula los puntajes de las escalas y avisa al encuestador si una respuesta indica riesgo.</dd></div>
-          <div><dt data-en="Result">Resultado</dt><dd data-en="In real use with participants: every answer stays safe on the iPad until it reaches the Form, with CSV (Excel) and JSON backups.">En uso real con participantes: cada respuesta queda a salvo en el iPad hasta que llega al Form, con respaldo en CSV (para Excel) y JSON.</dd></div>
+          <div><dt data-en="Problem">Problema</dt><dd data-en="Gathering and sorting openings was repetitive manual work.">Reunir y clasificar vacantes era trabajo manual y repetitivo.</dd></div>
+          <div><dt data-en="What I built">Lo que construí</dt><dd data-en="Weekly Adzuna searches, LinkedIn and Indeed alerts, Slack reminders and company outreach with human approval.">Búsquedas semanales en Adzuna, alertas de LinkedIn e Indeed, recordatorios en Slack y contacto a empresas con aprobación humana.</dd></div>
+          <div><dt data-en="Result">Resultado</dt><dd data-en="Validated on fake data and delivered import-ready.">Validados con datos falsos y entregados listos para importar.</dd></div>
         </dl>
-        <div class="chips"><span>Offline-first (PWA)</span><span>iPad</span><span>JavaScript</span><span>Claude Code</span></div>
-        <p class="note" data-en="In real use with participants: no public demo, so test data never mixes with the thesis data.">En uso real con participantes: sin demo pública, para que los datos de prueba no se mezclen con los de la tesis.</p>
-      </article>
-
-      <article class="card">
-        <div class="meta"><span>Oct 2026</span><span class="pill" data-en="In use">En uso</span></div>
-        <h3 data-en="AI job-search engine for bootcamp graduates">Buscador de empleos con IA para recién graduados</h3>
-        <p class="sub" data-en="From a fresh graduate's résumé to a list of vetted openings, every week and never the same one twice.">Del CV de un recién graduado a una lista de vacantes verificadas, cada semana y sin repetir ninguna.</p>
-        <dl class="story">
-          <div><dt data-en="Problem">Problema</dt><dd data-en="Hunting for junior openings by hand is slow, and searching only for “AI Engineer” doesn't work: that title almost always asks for years of experience. More than 20 postings with that title were discarded for requiring 3+ years.">Buscar vacantes junior a mano es lento, y buscar solo “AI Engineer” no funciona: ese título casi siempre pide años de experiencia. Más de 20 ofertas con ese título quedaron descartadas por pedir 3 años o más.</dd></div>
-          <div><dt data-en="What I built">Lo que construí</dt><dd data-en="With Claude Code: a Python script that queries 8+ sources (Dreamwork via MCP, 2027 internship lists, Hacker News, Greenhouse, Lever and Ashby boards…), a skill and a subagent that match each résumé to roles nobody was searching for, and a memory that learns from every delivery.">Con Claude Code: un script en Python que consulta más de 8 fuentes (Dreamwork vía MCP, listas de internships 2027, Hacker News, bolsas de Greenhouse, Lever y Ashby…), una skill y un subagente que cruzan cada CV con roles que nadie estaba buscando, y una memoria que aprende de cada entrega.</dd></div>
-          <div><dt data-en="Result">Resultado</dt><dd data-en="5 to 8 targeted openings per student, with requirements flagged. Of the 19 qualifying postings I delivered, only 5 had “AI” in the title — the rest were adjacent roles. I also vetted and rejected 5 tools before wiring in the final sources.">De 5 a 8 vacantes dirigidas por estudiante, con los requisitos marcados. De las 19 ofertas aptas que entregué, solo 5 llevaban “AI” en el título: el resto eran roles adyacentes. Además evalué y descarté 5 herramientas antes de integrar las fuentes definitivas.</dd></div>
-        </dl>
-        <div class="chips"><span data-en="8+ sources">8+ fuentes</span><span data-en="MCP + skill + subagent">MCP + skill + subagente</span><span>Python</span><span data-en="Read-only and audited">Solo lectura y auditado</span></div>
-        <p class="note" data-en="Built for the GeekForce program at 4Geeks Academy. No student data is published.">Hecho para el programa GeekForce de 4Geeks Academy. No se publican datos de estudiantes.</p>
-      </article>
-
-      <article class="card dk">
-        <div class="meta"><span>2026</span><span class="pill" data-en="Skill">Habilidad</span></div>
-        <h3 data-en="AI agent design and orchestration">Diseño y orquestación de agentes de IA</h3>
-        <p class="sub" data-en="Teams of AI agents where each one does what it does best.">Equipos de agentes de IA donde cada uno hace lo que mejor sabe.</p>
-        <dl class="story">
-          <div><dt data-en="Problem">Problema</dt><dd data-en="A general chat isn't enough when a problem has several steps, different sources and different kinds of decisions.">Un chat general no alcanza cuando el problema tiene varios pasos, fuentes distintas y decisiones de naturaleza distinta.</dd></div>
-          <div><dt data-en="What I built">Lo que construí</dt><dd data-en="I train agents for specific tasks, decide when a dedicated subagent is worth it and connect them in work trees where one agent coordinates others.">Entreno agentes para tareas concretas, decido cuándo conviene un subagente dedicado y los conecto en árboles de trabajo donde un agente coordina a otros.</dd></div>
-          <div><dt data-en="Result">Resultado</dt><dd data-en="Applied in real projects: two Microsoft Copilot Studio agents for a talent team, and in my own work Claude Cowork plus the job-search engine's subagent.">Aplicado en proyectos reales: dos agentes en Microsoft Copilot Studio para un equipo de talento y, en lo mío, Claude Cowork y el subagente del buscador de empleos.</dd></div>
-        </dl>
-        <div class="chips"><span>Copilot Studio</span><span>Claude Cowork</span><span data-en="Multi-agent">Multi-agente</span></div>
+        <div class="chips"><span>n8n</span><span>Slack + Gmail + Sheets</span><span data-en="Tested on fake data">Probado con datos falsos</span><span data-en="Human approval">Aprobación humana</span></div>
+        <p class="note" data-en="Pending the team’s review.">Pendiente de revisión del equipo.</p>
       </article>
 
       <article class="card dash">
@@ -275,22 +353,22 @@
         <h3 data-en="Performance report automation">Automatización de informes de desempeño</h3>
         <p class="sub" data-en="From days of manual work to minutes: reports that build themselves.">De días de trabajo manual a minutos: informes que se arman solos.</p>
         <dl class="story">
-          <div><dt data-en="Problem">Problema</dt><dd data-en="Every individual feedback report was assembled by hand in Canva: slow, and no two looked alike.">Cada devolución individual se armaba a mano en Canva: lento, y ningún informe se veía igual.</dd></div>
-          <div><dt data-en="What I built">Lo que construí</dt><dd data-en="I documented the process and built a code template (HTML + CSS + SVG → PDF) that takes each person's data from Excel and generates a 6-page report, with an automatic audit that catches name, accent and mixed-up data errors before delivery.">Documenté el proceso y construí una plantilla en código (HTML + CSS + SVG → PDF) que toma los datos de cada persona desde Excel y genera un informe de 6 páginas, con una auditoría automática que atrapa errores de nombres, tildes y datos cruzados antes de entregar.</dd></div>
-          <div><dt data-en="Result">Resultado</dt><dd data-en="Several dozen reports with identical design, checked before they go out, in minutes instead of days.">Varias decenas de informes con diseño idéntico, revisados antes de salir, en minutos en lugar de días.</dd></div>
+          <div><dt data-en="Problem">Problema</dt><dd data-en="Each individual report was assembled by hand in Canva: slow and inconsistent.">Cada informe individual se armaba a mano en Canva: lento y desigual.</dd></div>
+          <div><dt data-en="What I built">Lo que construí</dt><dd data-en="A code template that reads Excel and builds 6-page reports, with an automatic check for names, accents and data.">Plantilla en código que lee Excel y genera informes de 6 páginas, con auditoría automática de nombres, tildes y datos.</dd></div>
+          <div><dt data-en="Result">Resultado</dt><dd data-en="Dozens of identically designed, checked reports in minutes.">Varias decenas de informes con diseño idéntico, revisados antes de salir, en minutos.</dd></div>
         </dl>
         <div class="chips"><span data-en="Excel → PDF">Excel → PDF</span><span data-en="Automatic audit">Auditoría automática</span></div>
-        <p class="note" data-en="Internal project — no repository or public demo.">Proyecto interno — sin repositorio ni demo pública.</p>
+        <p class="note" data-en="Internal project, no link.">Proyecto interno, sin enlace.</p>
       </article>
 
       <article class="card">
         <div class="meta"><span data-en="May — Jun 2026">May — Jun 2026</span><span class="pill" data-en="Public demo">Demo pública</span></div>
         <h3 data-en="Meeting-room booking system">Sistema de reserva de salas</h3>
-        <p class="sub" data-en="No more email back-and-forth: a calendar that shows instantly which room is free.">Adiós al ir y venir de correos: un calendario que muestra al instante qué sala está libre.</p>
+        <p class="sub" data-en="A calendar that shows instantly which room is free.">Un calendario que muestra al instante qué sala está libre.</p>
         <dl class="story">
-          <div><dt data-en="Problem">Problema</dt><dd data-en="Coordinating who used each room meant emails and phone calls, with no way to see at a glance what was free.">Coordinar quién usaba cada sala era un ir y venir de correos y llamadas, sin forma de ver de un vistazo qué estaba libre.</dd></div>
-          <div><dt data-en="What I built">Lo que construí</dt><dd data-en="A complete app: public view of approved bookings, request form, admin approval panel, filterable history and CSV export.">Una app completa: vista pública de reservas aprobadas, formulario de solicitud, panel de aprobación para administradores, historial con filtros y exportación a CSV.</dd></div>
-          <div><dt data-en="Result">Resultado</dt><dd data-en="An end-to-end flow, from request to approval, with checks that prevent double bookings, and a public demo to try it.">Un flujo de punta a punta, de la solicitud a la aprobación, con validaciones que evitan choques de horario, y una demo pública para probarlo.</dd></div>
+          <div><dt data-en="Problem">Problema</dt><dd data-en="Booking rooms meant email and phone back-and-forth.">Reservar salas era un ir y venir de correos y llamadas.</dd></div>
+          <div><dt data-en="What I built">Lo que construí</dt><dd data-en="Public view, request form, admin approval, history and CSV export.">Vista pública, solicitud, aprobación de administradores, historial y exportación a CSV.</dd></div>
+          <div><dt data-en="Result">Resultado</dt><dd data-en="A complete flow with double-booking checks and a public demo.">Flujo completo con validaciones contra choques de horario y demo pública.</dd></div>
         </dl>
         <div class="chips"><span>Supabase</span><span data-en="Live calendar">Calendario en vivo</span><span data-en="CSV export">Exportación CSV</span></div>
         <a class="link" href="https://cinavibecoding.github.io/reserva-de-salas/" target="_blank" rel="noopener" data-en="Try the demo →">Probar la demo →</a>
@@ -312,7 +390,10 @@
       <span>DeepSeek</span>
       <span>Lovable</span>
       <span>React / TypeScript</span>
+      <span>MCP</span>
+      <span>n8n</span>
       <span>Python</span>
+      <span>Remotion</span>
       <span>HTML / CSS / JS</span>
       <span>GitHub Pages</span>
     </div>
@@ -380,6 +461,160 @@
     var saved = null;
     try{ saved = localStorage.getItem('lang'); }catch(e){}
     setLang(saved === 'en' ? 'en' : 'es', false);
+  })();
+</script>
+
+<script>
+  /* Serpiente mínima: sin librerías, sin bucle mientras no se juega. */
+  (function(){
+    var box = document.getElementById('game');
+    if(!box) return;
+    var cv = document.getElementById('gCanvas');
+    var ctx = cv.getContext('2d');
+    if(!ctx) { box.hidden = true; return; }
+    var ov = document.getElementById('gOv'), msg = document.getElementById('gMsg');
+    var btn = document.getElementById('gBtn'), cta = document.getElementById('gCta');
+    var scoreEl = document.getElementById('gScore');
+    var root = document.documentElement;
+    var COLS = 20, ROWS = 10, S = 20;
+    ctx.setTransform(2, 0, 0, 2, 0, 0);
+
+    var state = 'idle', snake = [], dir = {x:1,y:0}, queue = [], food = null, score = 0, timer = null;
+    var best = 0;
+    try{ best = parseInt(localStorage.getItem('snakeBest') || '0', 10) || 0; }catch(e){}
+
+    function isEn(){ return root.getAttribute('lang') === 'en'; }
+    function T(es, en){ return isEn() ? en : es; }
+    function css(n){ return getComputedStyle(root).getPropertyValue(n).trim(); }
+
+    function reset(){
+      snake = [{x:6,y:5},{x:5,y:5},{x:4,y:5}];
+      dir = {x:1,y:0}; queue = []; score = 0;
+      spawn();
+    }
+    function spawn(){
+      var free = [];
+      for(var x = 0; x < COLS; x++){ for(var y = 0; y < ROWS; y++){
+        var used = false;
+        for(var i = 0; i < snake.length; i++){ if(snake[i].x === x && snake[i].y === y){ used = true; break; } }
+        if(!used) free.push({x:x,y:y});
+      } }
+      food = free.length ? free[Math.floor(Math.random() * free.length)] : null;
+    }
+    function rr(x, y, w, h, r){
+      ctx.beginPath();
+      ctx.moveTo(x + r, y);
+      ctx.arcTo(x + w, y, x + w, y + h, r);
+      ctx.arcTo(x + w, y + h, x, y + h, r);
+      ctx.arcTo(x, y + h, x, y, r);
+      ctx.arcTo(x, y, x + w, y, r);
+      ctx.closePath(); ctx.fill();
+    }
+    function draw(){
+      var bg = css('--bg'), line = css('--line'), ink = css('--ink'), acc = css('--accent');
+      ctx.fillStyle = bg; ctx.fillRect(0, 0, 400, 200);
+      ctx.fillStyle = line;
+      for(var x = 0; x < COLS; x++){ for(var y = 0; y < ROWS; y++){ ctx.fillRect(x*S + S/2 - 1, y*S + S/2 - 1, 2, 2); } }
+      if(food){
+        ctx.fillStyle = acc;
+        ctx.beginPath(); ctx.arc(food.x*S + S/2, food.y*S + S/2, 6.5, 0, Math.PI*2); ctx.fill();
+      }
+      for(var i = snake.length - 1; i >= 0; i--){
+        var s = snake[i];
+        ctx.globalAlpha = i === 0 ? 1 : Math.max(.45, .9 - i*.03);
+        ctx.fillStyle = ink;
+        rr(s.x*S + 2, s.y*S + 2, S - 4, S - 4, 6);
+      }
+      ctx.globalAlpha = 1;
+      if(snake.length){
+        var hd = snake[0];
+        ctx.fillStyle = bg;
+        var ex = dir.x !== 0 ? 0 : 4, ey = dir.y !== 0 ? 0 : 4;
+        var cx = hd.x*S + S/2 + dir.x*3, cy = hd.y*S + S/2 + dir.y*3;
+        ctx.beginPath(); ctx.arc(cx - ex, cy - ey, 1.8, 0, Math.PI*2); ctx.arc(cx + ex, cy + ey, 1.8, 0, Math.PI*2); ctx.fill();
+      }
+    }
+    function paintText(){
+      scoreEl.textContent = T('Puntos ', 'Score ') + score + ' · ' + T('Récord ', 'Best ') + best;
+      cv.setAttribute('aria-label', T('Juego de la serpiente', 'Snake game'));
+      if(state === 'idle'){
+        msg.textContent = T('Serpiente: come los puntos y esquiva tu cola.', 'Snake: eat the dots and dodge your tail.');
+        btn.textContent = T('Jugar', 'Play');
+      } else if(state === 'paused'){
+        msg.textContent = T('En pausa', 'Paused');
+        btn.textContent = T('Continuar', 'Resume');
+      } else if(state === 'over'){
+        msg.textContent = T('Fin del juego. Puntos: ', 'Game over. Score: ') + score + ' · ' + T('Récord: ', 'Best: ') + best;
+        btn.textContent = T('Otra vez', 'Again');
+        cta.textContent = T('Buen reflejo: hablemos', 'Nice reflexes: let’s talk');
+      }
+      ov.hidden = state === 'playing';
+      cta.hidden = !(state === 'over' && score >= 10);
+    }
+    function setState(s){
+      state = s;
+      box.classList.toggle('playing', s === 'playing');
+      paintText();
+    }
+    function delay(){ return Math.max(70, 130 - score * 4); }
+    function schedule(){ clearTimeout(timer); timer = setTimeout(step, delay()); }
+    function step(){
+      if(state !== 'playing') return;
+      if(queue.length) dir = queue.shift();
+      var hd = snake[0];
+      var nx = (hd.x + dir.x + COLS) % COLS, ny = (hd.y + dir.y + ROWS) % ROWS;
+      var eat = !!food && nx === food.x && ny === food.y;
+      var limit = eat ? snake.length : snake.length - 1;
+      for(var i = 0; i < limit; i++){
+        if(snake[i].x === nx && snake[i].y === ny){ return over(); }
+      }
+      snake.unshift({x:nx,y:ny});
+      if(eat){
+        score++;
+        if(score > best){ best = score; try{ localStorage.setItem('snakeBest', String(best)); }catch(e){} }
+        spawn();
+        paintText();
+      } else { snake.pop(); }
+      draw();
+      schedule();
+    }
+    function over(){ clearTimeout(timer); setState('over'); draw(); }
+    function start(){ reset(); setState('playing'); draw(); schedule(); }
+    function pause(){ if(state !== 'playing') return; clearTimeout(timer); setState('paused'); }
+    function resume(){ setState('playing'); schedule(); }
+
+    function turn(dx, dy){
+      if(state !== 'playing') return;
+      var last = queue.length ? queue[queue.length - 1] : dir;
+      if((last.x === -dx && last.y === -dy) || (last.x === dx && last.y === dy)) return;
+      if(queue.length < 2) queue.push({x:dx,y:dy});
+    }
+    var KEYS = {ArrowUp:[0,-1],ArrowDown:[0,1],ArrowLeft:[-1,0],ArrowRight:[1,0],w:[0,-1],s:[0,1],a:[-1,0],d:[1,0],W:[0,-1],S:[0,1],A:[-1,0],D:[1,0]};
+    document.addEventListener('keydown', function(e){
+      if(state !== 'playing') return;
+      if(e.key === 'Escape'){ pause(); return; }
+      var k = KEYS[e.key];
+      if(k){ e.preventDefault(); turn(k[0], k[1]); }
+    });
+
+    var tx = 0, ty = 0;
+    cv.addEventListener('touchstart', function(e){ var t = e.touches[0]; tx = t.clientX; ty = t.clientY; }, {passive:true});
+    cv.addEventListener('touchmove', function(e){
+      if(state !== 'playing') return;
+      var t = e.touches[0], dx = t.clientX - tx, dy = t.clientY - ty;
+      if(Math.max(Math.abs(dx), Math.abs(dy)) < 18) return;
+      if(Math.abs(dx) > Math.abs(dy)) turn(dx > 0 ? 1 : -1, 0); else turn(0, dy > 0 ? 1 : -1);
+      tx = t.clientX; ty = t.clientY;
+    }, {passive:true});
+
+    btn.addEventListener('click', function(){ if(state === 'paused') resume(); else start(); });
+    document.addEventListener('visibilitychange', function(){ if(document.hidden) pause(); });
+    if('IntersectionObserver' in window){
+      new IntersectionObserver(function(en){ if(!en[0].isIntersecting) pause(); }, {threshold:.25}).observe(box);
+    }
+    new MutationObserver(function(){ paintText(); draw(); }).observe(root, {attributes:true, attributeFilter:['lang','data-theme']});
+
+    reset(); setState('idle'); draw();
   })();
 </script>
 </body>
